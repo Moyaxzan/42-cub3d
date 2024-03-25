@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/25 17:37:21 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:44:22 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@
 
 int	get_text_index(char *line)
 {
-	if (!ft_strncmp(line, "NO ", 3))
+	if (!ft_strncmp(line, "NO", 2))
 		return (NORTH);
-	if (!ft_strncmp(line, "SO ", 3))
+	if (!ft_strncmp(line, "SO", 2))
 		return (SOUTH);
-	if (!ft_strncmp(line, "WE ", 3))
+	if (!ft_strncmp(line, "WE", 2))
 		return (WEST);
-	if (!ft_strncmp(line, "EA ", 3))
+	if (!ft_strncmp(line, "EA", 2))
 		return (EAST);	
-	else
-		return (-1);
+	return (-1);
 }
 
 // checks on the validity of the texture path
@@ -33,20 +32,13 @@ int	get_text_index(char *line)
 int	text_path_ok(char *line)
 {
 	int		i;
-	char	*path;
 
 	i = 0;
-	if (get_text_index == -1)
+	if (get_text_index(line) == -1)
 		return (0);
-	path = ft_strdup(line + 3);
-	if (!path)
+	//skip cardinal + whitespaces
+	if (open(line + 3, O_RDONLY) == -1)
 		return (0);
-	if (open(path, O_RDONLY) == -1)
-	{
-		free(path);
-		return (0);
-	}
-	free(path);
 	return (1);
 }
 
@@ -76,41 +68,38 @@ int	colors_ok(char *line)
 // way too long and messy, just a first try on how to structure the parsing
 // for now it only assigns the NO SO WE EA textures to the struct
 
-int	parsing(char *path, t_map *map)
+int	parsing(t_data *data)
 {
 	int		fd;
 	char	*line;
 	int		i;
 
-	fd = open(path, O_RDONLY);
+	fd = open(data->map->file_path, O_RDONLY);
 	i = 0;
 	if (fd == -1)
-		ft_error("Error\n Map could not be opened\n");
-	map->walls = malloc(sizeof(char *) * 4);
-	if (!map->walls)
-		ft_error("Error\n Failed malloc on texture path tab\n");
+		ft_errornl("Error\n Map could not be opened\n");
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!text_path_ok(line))
 			break;
-		if (!map->walls[get_text_index(line)])
-			map->walls[get_text_index(line)] = ft_strdup(line + 3);
+		if (!data->map->walls[get_text_index(line)])
+			data->map->walls[get_text_index(line)] = ft_strdup(line + 3);
 		else
 		{
 			free(line);
-			ft_error("Error\n Texture in double\n");
+			ft_errornl("Error\n Texture in double\n");
 		}
-		if (!map->walls[get_text_index(line)])
+		if (!data->map->walls[get_text_index(line)])
 		{
 			free(line);
-			ft_error("Error\n Failed strdup on texture storage\n");
+			ft_errornl("Error\n Failed strdup on texture storage\n");
 		}
 	}
-	if (!got_all_text(map->walls))
+	if (!got_all_text(data->map->walls))
 	{
 		free(line);
-		ft_error("Error\n");
+		ft_errornl("Error\n");
 	}
 	
 }

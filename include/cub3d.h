@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/25 13:39:41 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:44:37 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@
 //map (images, floor, plafond, map_table)
 
 typedef struct s_map {
+	char	*file_path;
 	char	**map;
-	char	**walls;
+	char	*walls[4];
 	int		ceiling;
 	int		floor;
 }	t_map;
@@ -48,11 +49,14 @@ typedef struct s_map {
 //
 typedef struct s_data {
 	//player
-	t_map	map;
+	t_map	*map;
 }	t_data;
 
 
 /*---------parsing.c---------*/
-int	parsing(int argc, char **argv);
+int	parsing(t_data *data);
+
+/*---------arg_parsing.c---------*/
+void	ft_errornl(char *str);
 
 #endif
