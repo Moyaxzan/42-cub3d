@@ -3,8 +3,8 @@ SO ./path_to_south_texture
 WE ./path_to_west_texture
 EA ./path_to_east_texture
 
-F 220,100,0 //floor
-C 220,100,0 //ceiling
+F 220,100,0
+C 220,100,0
 
 11111111111111111111111111111111111
 11000000000001110000000000000000001

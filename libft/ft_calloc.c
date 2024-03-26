@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:05:59 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/05/05 13:02:03 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:08:31 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	char			*res;
 	size_t			len_malloc;
 
-	if (size < 0 || nmemb < 0)
+	if (size <= 0 || nmemb <= 0)
 		return (0x0);
 	len_malloc = nmemb * size;
 	if (len_malloc / size != nmemb)

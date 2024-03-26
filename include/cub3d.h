@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/25 18:44:37 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:38:52 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 
-
+# define SUCCESS 0
 # define PARSING_ERROR 1
+# define UNKNOWN_ERROR 2
 # define MLX_ERROR 666
 
 
@@ -39,6 +42,7 @@
 
 typedef struct s_map {
 	char	*file_path;
+	int		fd;
 	char	**map;
 	char	*walls[4];
 	int		ceiling;
@@ -54,9 +58,14 @@ typedef struct s_data {
 
 
 /*---------parsing.c---------*/
-int	parsing(t_data *data);
+int		parsing(int argc, char **argv, t_data *data);
+void	ft_errornl(char *str);
+int		ft_isspace(int c);
+void	free_dchartab(char **tab);
+int		ft_isnum(char *str);
 
 /*---------arg_parsing.c---------*/
-void	ft_errornl(char *str);
+int		arg_parsing(int argc, char **argv, t_data *data);
+int		file_parsing(t_data *data);
 
 #endif

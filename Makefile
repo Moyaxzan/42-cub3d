@@ -7,7 +7,7 @@ CFLAGS		=	-Wall -Wextra -Werror -I./include -g
 
 SRC_DIR		=	src
 
-SRCS		=	main.c parsing/arg_parsing.c parsing/map_parsing.c
+SRCS		=	main.c parsing/arg_parsing.c parsing/file_parsing.c parsing/parsing.c
 
 OBJ_DIR		=	obj
 
@@ -50,7 +50,7 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX)
 				@clear
 				@echo "$(COLOR_LBLUE)"
 				@echo "		=========================================	"
-				@echo "		██████╗██╗   ██╗██████╗ ██████╗ ██████╗  	"
+				@echo "		███████╗██╗   ██╗██████╗ ██████╗ ██████╗  	"
 				@echo "		██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗	"
 				@echo "		██║     ██║   ██║██████╔╝ █████╔╝██║  ██║	"
 				@echo "		██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║	"

@@ -3,53 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   arg_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 13:27:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/25 18:16:05 by tsaint-p         ###   ########.fr       */
+/*   Created: 2024/03/25 19:01:02 by tsaint-p          #+#    #+#             */
+/*   Updated: 2024/03/26 13:17:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-
-// temporary error function
-
-void	ft_errornl(char *str)
-{
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd("\n", 2);
-	exit(1);
-}
+# include "../../include/cub3d.h"
 
 //checks if the map extension is indeed .cub
 
 int	check_map_extension(char *str)
 {
-	char	*ext;
-	
 	if (!str)
 		return (1);
-	if (!ft_strchr(str, '.'))
+	if (ft_strlen(str) < 4)
 		return (1);
-	ext = ft_strchr(str, '.');
-	if (ft_strncmp(ext, ".cub", 4) || ft_strlen(ext) != 4)
+	if (ft_strncmp(str + ft_strlen(str) - 4, ".cub", 4))
 		return (1);
 	return (0);
 }
 
 //checks potential errors on arg number or validity of file
 
-int	check_args(int argc, char **argv)
+int	arg_parsing(int argc, char **argv, t_data *data)
 {
 	if (argc != 2)
-		ft_errornl("Error\nInvalid arguments. Usage : ./cub3D [path_to_map]\n");
+		ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n");
 	else if (argv[1])
 	{
 		if (check_map_extension(argv[1]))
-			ft_errornl("Error\nInvalid map extension. Expected : *.cub\n");
-		// more precise error
-		if (open(argv[1], O_RDONLY) == -1)
-			ft_errornl("Error\nThe selected map could not be opened\n");
+			return (ft_errornl("Invalid map extension. Expected : *.cub\n"), PARSING_ERROR);
+		data->map->fd = open(argv[1], O_RDONLY);
+		if (data->map->fd == -1)
+			return (ft_errornl(strerror(errno)), PARSING_ERROR);
 	}
 	return (0);
 }
