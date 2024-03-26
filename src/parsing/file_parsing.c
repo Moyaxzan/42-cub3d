@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 19:10:37 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 19:36:30 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int	parse_elements(t_data *data, int *line_nb)
 	return (SUCCESS);
 }
 
-int	file_parsing(t_data *data)
+int	file_parsing(t_data *data, int *line_nb)
 {
-	if (parse_elements(data))
+	if (parse_elements(data, line_nb))
 		return (PARSING_ERROR);
 	if (parse_map(data))
 		return (PARSING_ERROR);

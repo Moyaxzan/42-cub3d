@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 19:12:54 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 19:37:18 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 	int		i;
 	
 	i = 0;
-	if ()
-		return (1);
 	while ((*line) && (*line)[i])
 	{
 		if (ft_is_player_pos((*line)[i]))
@@ -88,12 +86,16 @@ int	store_map(t_data *data, char *line)
 	
 	height = 0;
 	length = 0;
-	while (!ft_valid_map_line(data, &line, height) && !ft_is_empty_line((*line)))
+	while (!ft_valid_map_line(data, &line, height) && !ft_is_empty_line(line))
 	{
 		if (!data->map->map_tab[0])
 			data->map->map_tab[0] = line;
 		else
+		{
 			data->map->map_tab = ft_strjoin_map(data->map->map_tab, line);
+			if (!data->map->map_tab)
+				return (PARSING_ERROR); // Error failed malloc in the join
+		}
 		length = ft_strlen(line);
 		if (length > data->map->map_width)
 			data->map->map_width = length;
