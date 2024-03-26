@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 13:54:48 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:41:21 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_map	*init_map(void)
 	if (!map)
 		return (NULL);
 	map->file_path = NULL;
-	map->map = NULL;
+	map->map_tab = NULL;
 	map->walls[NORTH] = NULL;
 	map->walls[SOUTH] = NULL;
 	map->walls[WEST] = NULL;
@@ -28,7 +28,22 @@ t_map	*init_map(void)
 	map->ceiling = 0;
 	map->floor = 0;
 	map->fd = 0;
+	map->map_height = 0;
+	map->map_width = 0;
 	return (map);
+}
+
+t_player	*init_player(void)
+{
+	t_player	*player;
+
+	player = malloc(sizeof(t_player));
+	if (!player)
+		return (NULL);
+	player->orient = 0;
+	player->pos_x = -1;
+	player->pos_y = -1;
+	return (player);
 }
 
 t_data	*init_data(void)
@@ -41,9 +56,9 @@ t_data	*init_data(void)
 	data->map = init_map();
 	if (!data->map)
 		return (free(data), NULL);
-	// data->player = malloc(sizeof(t_player));
-	// if (!data->player)
-	// 	return (free(data->map), free(data), NULL);
+	data->player = init_player();
+	if (!data->player)
+		return (free(data->map), free(data), NULL);
 	return (data);
 }
 
@@ -72,6 +87,13 @@ void	clean_exit(t_data *data)
 	free(data);
 }
 
+void	print_player(t_player *player)
+{
+	printf("player->orient = %c\n", player->orient);
+	printf("player->pos_x = %d\n", player->pos_x);
+	printf("player->pos_y = %d\n", player->pos_y);
+}
+
 void	print_map(t_map *map)
 {
 	printf("map : %p\n", map);
@@ -83,6 +105,13 @@ void	print_map(t_map *map)
 	printf("map->walls[3] = %s\n", map->walls[3]);
 	printf("map->ceiling = %x\n", map->ceiling);
 	printf("map->floor = %x\n", map->floor);
+	printf("map->height = %d\n", map->map_height);
+	printf("map->width = %d\n", map->map_width);
+	printf("map->map_tab = \n");
+	for (int i = 0; map->map_tab[i]; i++)
+	{
+		printf("%s", map->map_tab[i]);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -93,6 +122,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	parsing(argc, argv, data);
 	print_map(data->map);
+	print_player(data->player);
 	clean_exit(data);
 	return (0);
 }

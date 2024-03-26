@@ -7,7 +7,7 @@ CFLAGS		=	-Wall -Wextra -Werror -I./include -g
 
 SRC_DIR		=	src
 
-SRCS		=	main.c parsing/arg_parsing.c parsing/file_parsing.c parsing/parsing.c
+SRCS		=	main.c parsing/arg_parsing.c parsing/file_parsing.c parsing/parsing.c parsing/map_parsing.c
 
 OBJ_DIR		=	obj
 

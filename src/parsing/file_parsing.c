@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 13:55:59 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:49:59 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,11 @@ int	parse_elements(t_data *data)
 	return (SUCCESS);
 }
 
-// way too long and messy, just a first try on how to structure the parsing
-// for now it only assigns the NO SO WE EA textures to the struct
-
 int	file_parsing(t_data *data)
 {
 	if (parse_elements(data))
 		return (PARSING_ERROR);
-	// if (parse_map(data));
-	// 	return (PARSING_ERROR);
+	if (parse_map(data))
+		return (PARSING_ERROR);
 	return (SUCCESS);
 }

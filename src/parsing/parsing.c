@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:27:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 13:27:43 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:51:56 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ int	ft_isspace(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' \
 		|| c == '\v' || c == '\f');
+}
+
+int	ft_is_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line && line[i])
+	{
+		if (!ft_isspace(line[i++]))
+			return (0);
+	}
+	return (1);
 }
 
 int	parsing(int argc, char **argv, t_data *data)

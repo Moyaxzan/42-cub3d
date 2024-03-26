@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 12:38:52 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:23:00 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,20 @@
 
 
 //player (coord, orientation)
-// typedef struct s_player {
-// }	t_player;
+typedef struct s_player {
+	char	orient;
+	int		pos_x;
+	int		pos_y;
+}	t_player;
 
 //map (images, floor, plafond, map_table)
 
 typedef struct s_map {
 	char	*file_path;
 	int		fd;
-	char	**map;
+	char	**map_tab;
+	int		map_height;
+	int		map_width;
 	char	*walls[4];
 	int		ceiling;
 	int		floor;
@@ -52,8 +57,8 @@ typedef struct s_map {
 //data(map, player)
 //
 typedef struct s_data {
-	//player
-	t_map	*map;
+	t_player	*player;
+	t_map		*map;
 }	t_data;
 
 
@@ -61,8 +66,10 @@ typedef struct s_data {
 int		parsing(int argc, char **argv, t_data *data);
 void	ft_errornl(char *str);
 int		ft_isspace(int c);
+int		ft_is_empty_line(char *line);
 void	free_dchartab(char **tab);
 int		ft_isnum(char *str);
+int		parse_map(t_data *data);
 
 /*---------arg_parsing.c---------*/
 int		arg_parsing(int argc, char **argv, t_data *data);
