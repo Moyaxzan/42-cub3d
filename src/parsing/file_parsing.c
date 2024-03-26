@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 19:36:30 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 22:15:27 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int	parse_elements(t_data *data, int *line_nb)
 		else if (filled)
 			nb_elem++;
 		free(line);
+		if (nb_elem == 6)
+			break ;
 		line = get_next_line(data->map->fd);
 		(*line_nb)++;
 	}

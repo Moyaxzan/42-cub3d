@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 19:41:35 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 22:19:42 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ void	clean_exit(t_data *data)
 		ft_free(data->map->walls[3]);
 		if (data->map->fd > 0)
 			close(data->map->fd);
+		free_dchartab(data->map->map_tab);
 		ft_free(data->map);
 	}
+	ft_free(data->player);
 	free(data);
 }
 

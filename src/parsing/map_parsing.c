@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 19:37:18 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 22:33:26 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_strjoin_map(char **tab, char *line)
 
 	i = 0;
 	count = 0;
-	while ((tab[count]))
+	while (tab[count])
 		count++;
 	count++;
 	new_tab = malloc(sizeof(char *) * (count + 1));
@@ -32,8 +32,8 @@ char	**ft_strjoin_map(char **tab, char *line)
 		i++;
 	}
 	new_tab[i] = line;
-	i++;
-	new_tab[i] = NULL;
+	new_tab[i + 1] = NULL;
+	free(tab);
 	return (new_tab);	
 }
 
@@ -86,21 +86,16 @@ int	store_map(t_data *data, char *line)
 	
 	height = 0;
 	length = 0;
-	while (!ft_valid_map_line(data, &line, height) && !ft_is_empty_line(line))
+	while (line && !ft_valid_map_line(data, &line, height) && !ft_is_empty_line(line))
 	{
-		if (!data->map->map_tab[0])
-			data->map->map_tab[0] = line;
-		else
-		{
-			data->map->map_tab = ft_strjoin_map(data->map->map_tab, line);
-			if (!data->map->map_tab)
-				return (PARSING_ERROR); // Error failed malloc in the join
-		}
+		data->map->map_tab = ft_strjoin_map(data->map->map_tab, line);
+		if (!data->map->map_tab)
+			return (strerror(ENOMEM), UNKNOWN_ERROR); // Error failed malloc in the join
 		length = ft_strlen(line);
 		if (length > data->map->map_width)
 			data->map->map_width = length;
 		height++;
-		line = get_next_line(data->map->fd);
+		line = get_next_line(data->map->fd); // last line lost
 	}
 	data->map->map_height = height;
 	return (SUCCESS);
@@ -111,11 +106,16 @@ int	parse_map(t_data *data)
 	char	*line;
 	
 	line = get_next_line(data->map->fd);
-	while (ft_is_empty_line(line))
+	while (line && ft_is_empty_line(line))
+	{
+		free(line);
 		line = get_next_line(data->map->fd);
+	}
+	if (!line)
+		return (PARSING_ERROR);
 	data->map->map_tab = malloc(sizeof(char *));
 	if (!data->map->map_tab)
-		return (PARSING_ERROR); //error malloc on map tab
+		return (strerror(ENOMEM), UNKNOWN_ERROR); //error malloc on map tab
 	data->map->map_tab[0] = NULL;
 	store_map(data, line);
 	if (data->player->pos_x == -1 || data->player->pos_y == -1 \
@@ -128,6 +128,7 @@ int	parse_map(t_data *data)
 			// error unknown characters on file + free map
 			return (PARSING_ERROR);
 		}
+		free(line);
 		line = get_next_line(data->map->fd);
 	}
 	return (SUCCESS);

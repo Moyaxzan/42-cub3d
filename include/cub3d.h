@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 19:08:24 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 22:09:14 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	free_dchartab(char **tab);
 int		ft_isnum(char *str);
 int		parse_map(t_data *data);
 
+int		file_parserr(char *line, int line_nb);
 /*---------arg_parsing.c---------*/
 int		arg_parsing(int argc, char **argv, t_data *data);
 int		file_parsing(t_data *data, int *line_nb);
