@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 18:41:21 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 19:13:36 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (-1);
 	parsing(argc, argv, data);
-	print_map(data->map);
-	print_player(data->player);
+	// print_map(data->map);
+	// print_player(data->player);
 	clean_exit(data);
 	return (0);
 }

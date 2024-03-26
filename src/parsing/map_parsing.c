@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 19:01:16 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 19:12:54 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 	int		i;
 	
 	i = 0;
-	if (ft_is_empty_line((*line)))
+	if ()
 		return (1);
 	while ((*line) && (*line)[i])
 	{
@@ -83,29 +83,24 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 
 int	store_map(t_data *data, char *line)
 {
-	int	y;
+	int	height;
 	int	length;
 	
-	y = 0;
+	height = 0;
 	length = 0;
-	while (1)
+	while (!ft_valid_map_line(data, &line, height) && !ft_is_empty_line((*line)))
 	{
-		if (!ft_valid_map_line(data, &line, y))
-		{
-			if (!data->map->map_tab[0])
-				data->map->map_tab[0] = line;
-			else
-				data->map->map_tab = ft_strjoin_map(data->map->map_tab, line);
-			y++;
-		}
+		if (!data->map->map_tab[0])
+			data->map->map_tab[0] = line;
 		else
-			break ;
+			data->map->map_tab = ft_strjoin_map(data->map->map_tab, line);
 		length = ft_strlen(line);
 		if (length > data->map->map_width)
 			data->map->map_width = length;
+		height++;
 		line = get_next_line(data->map->fd);
 	}
-	data->map->map_height = y;
+	data->map->map_height = height;
 	return (SUCCESS);
 }
 

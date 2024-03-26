@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 17:23:00 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 19:08:24 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <errno.h>
 
 # define SUCCESS 0
-# define PARSING_ERROR 1
+# define PARSING_ERROR 3
 # define UNKNOWN_ERROR 2
 # define MLX_ERROR 666
 
@@ -73,6 +73,6 @@ int		parse_map(t_data *data);
 
 /*---------arg_parsing.c---------*/
 int		arg_parsing(int argc, char **argv, t_data *data);
-int		file_parsing(t_data *data);
+int		file_parsing(t_data *data, int *line_nb);
 
 #endif
