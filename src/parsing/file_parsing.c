@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 13:47:20 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:55:59 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	fill_element(t_data *data, char *line)
 	else if (!ft_strncmp(line, "F", 1))
 		data->map->floor = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
 	else if (!ft_strncmp(line, "C", 1))
-		data->map->floor = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
+		data->map->ceiling = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
 	else
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 13:36:30 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:54:48 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,19 @@ void	clean_exit(t_data *data)
 	free(data);
 }
 
+void	print_map(t_map *map)
+{
+	printf("map : %p\n", map);
+	printf("map->file_path = %s\n", map->file_path);
+	printf("map->fd = %d\n", map->fd);
+	printf("map->walls[0] = %s\n", map->walls[0]);
+	printf("map->walls[1] = %s\n", map->walls[1]);
+	printf("map->walls[2] = %s\n", map->walls[2]);
+	printf("map->walls[3] = %s\n", map->walls[3]);
+	printf("map->ceiling = %x\n", map->ceiling);
+	printf("map->floor = %x\n", map->floor);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -79,6 +92,7 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (-1);
 	parsing(argc, argv, data);
+	print_map(data->map);
 	clean_exit(data);
 	return (0);
 }
