@@ -6,11 +6,26 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 13:55:59 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:49:33 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+int	file_parserr(char *line, int line_nb)
+{
+	if (line)
+	{
+		write(2, "Error\nUnexpected character.\nl.", 30);
+		ft_putnbr_fd(line_nb, 2);
+		write(2, ": ", 2);
+		write(2, line, ft_strlen(line));
+		free(line);
+	}
+	else
+		write(2, "Error\nmissing informations\n", 26);
+	return (PARSING_ERROR);
+}
 
 // split with ',' ? check if 3 componoents + atoi + bitshift
 // implement error messages
@@ -64,11 +79,11 @@ int	fill_element(t_data *data, char *line)
 	else if (!ft_strncmp(line, "C", 1))
 		data->map->ceiling = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
 	else
-		return (0);
+		return (PARSING_ERROR);
 	return (1);
 }
 
-int	parse_elements(t_data *data)
+int	parse_elements(t_data *data, int *line_nb)
 {
 	char	*line;
 	int		nb_elem;
@@ -80,12 +95,15 @@ int	parse_elements(t_data *data)
 	while (line && nb_elem < 6)
 	{
 		filled = fill_element(data, line);
-		if (filled == -1)
-			return (PARSING_ERROR);
+		if (errno == ENOMEM)
+			return (strerror(errno), UNKNOWN_ERROR);
+		else if (filled == PARSING_ERROR)
+			return (file_parserr(line, *line_nb));
 		else if (filled)
 			nb_elem++;
 		free(line);
 		line = get_next_line(data->map->fd);
+		(*line_nb)++;
 	}
 	return (SUCCESS);
 }
@@ -93,9 +111,9 @@ int	parse_elements(t_data *data)
 // way too long and messy, just a first try on how to structure the parsing
 // for now it only assigns the NO SO WE EA textures to the struct
 
-int	file_parsing(t_data *data)
+int	file_parsing(t_data *data, int *line_nb)
 {
-	if (parse_elements(data))
+	if (parse_elements(data, line_nb))
 		return (PARSING_ERROR);
 	// if (parse_map(data));
 	// 	return (PARSING_ERROR);

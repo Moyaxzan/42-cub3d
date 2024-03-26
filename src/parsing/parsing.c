@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:27:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 13:27:43 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:47:11 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ int	ft_isspace(int c)
 
 int	parsing(int argc, char **argv, t_data *data)
 {
-	if (arg_parsing(argc, argv, data))
-		return (PARSING_ERROR);
-	if (file_parsing(data))
-		return (PARSING_ERROR);
-	return (SUCCESS);
+	int	line_nb;
+	int	ret_val;
+
+	ret_val = arg_parsing(argc, argv, data);
+	if (ret_val)
+		return (ret_val);
+	line_nb = 1;
+	ret_val = file_parsing(data, &line_nb);
+	return (ret_val);
 }

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 12:38:52 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:44:50 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <errno.h>
 
 # define SUCCESS 0
-# define PARSING_ERROR 1
+# define PARSING_ERROR 3
 # define UNKNOWN_ERROR 2
 # define MLX_ERROR 666
 
@@ -66,6 +66,6 @@ int		ft_isnum(char *str);
 
 /*---------arg_parsing.c---------*/
 int		arg_parsing(int argc, char **argv, t_data *data);
-int		file_parsing(t_data *data);
+int		file_parsing(t_data *data, int *line_nb);
 
 #endif

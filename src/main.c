@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 13:54:48 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:28:51 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (-1);
 	parsing(argc, argv, data);
-	print_map(data->map);
+	// print_map(data->map);
 	clean_exit(data);
 	return (0);
 }
