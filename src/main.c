@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 19:13:36 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/03/26 19:32:26 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,26 @@ void	print_map(t_map *map)
 	{
 		printf("%s", map->map_tab[i]);
 	}
+}
+
+void	help(void)
+{
+	printf("Cub3d program usage:\n");
+	printf("  ./cub3D file_path.cub\n\n");
+	printf("The file.cub should contain the following mandatory elements:\n");
+	printf("  - NO north_texture_path (Example: NO ./path_to_the_north_texture)\n");
+	printf("  - SO south_texture_path\n");
+	printf("  - WE west_texture_path\n");
+	printf("  - EA east_texture_path\n");
+	printf("  - F XXX,XXX,XXX (RGB format, for the Floor)\n");
+	printf("  - C XXX,XXX,XXX (RGB format, for the Ceiling)\n");
+	printf("  - A map\n\n");
+	printf("The map must fulfill the following specifications:\n");
+	printf("  - The map must be composed of only 6 possible characters: \n");
+	printf("    • 0 for an empty space\n    • 1 for a wall\n");
+	printf("    • N, S, E, or W for the player’s start position and orientation.\n");
+	printf("  - The map must be closed/surrounded by walls.\n");
+	printf("  - The map content always has to be the last element of the file.\n");
 }
 
 int	main(int argc, char **argv)
