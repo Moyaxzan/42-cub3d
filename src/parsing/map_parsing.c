@@ -6,36 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/01 15:54:40 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/01 20:23:29 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-char	**ft_strjoin_map(char **tab, char *line)
-{
-	char	**new_tab;
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (tab[count])
-		count++;
-	count++;
-	new_tab = malloc(sizeof(char *) * (count + 1));
-	if (!new_tab)
-		return (NULL);
-	while (tab[i])
-	{
-		new_tab[i] = tab[i];
-		i++;
-	}
-	new_tab[i] = line;
-	new_tab[i + 1] = NULL;
-	free(tab);
-	return (new_tab);	
-}
 
 int	get_player_pos(t_data *data, char c, int y, int x)
 {
@@ -97,7 +72,7 @@ int	store_map(t_data *data)
 		if (length > data->map->map_width)
 			data->map->map_width = length;
 		height++;
-		data->map->line = get_next_line(data->map->fd); // last line lost
+		data->map->line = get_next_line(data->map->fd);
 		valid = ft_valid_map_line(data, &data->map->line, height);
 		if (valid)
 			return (PARSING_ERROR);

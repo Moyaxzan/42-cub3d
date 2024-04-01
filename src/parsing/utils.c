@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:44:14 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 19:44:46 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:42:29 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_strjoin_map(char **tab, char *line)
 
 	i = 0;
 	count = 0;
-	while ((tab[count]))
+	while (tab[count])
 		count++;
 	count++;
 	new_tab = malloc(sizeof(char *) * (count + 1));
@@ -32,8 +32,8 @@ char	**ft_strjoin_map(char **tab, char *line)
 		i++;
 	}
 	new_tab[i] = line;
-	i++;
-	new_tab[i] = NULL;
+	new_tab[i + 1] = NULL;
+	free(tab);
 	return (new_tab);	
 }
 

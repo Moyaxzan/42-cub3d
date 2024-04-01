@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/01 15:31:01 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/01 20:29:42 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int		ft_isspace(int c);
 int		ft_is_empty_line(char *line);
 void	free_dchartab(char **tab);
 int		ft_isnum(char *str);
+char	**ft_strjoin_map(char **tab, char *line);
+int		ft_isspace(int c);
+int		map_checks(t_data *data);
 int		parse_map(t_data *data);
 int		finish_gnl(t_data *data);
 int		file_parserr(char *line, int line_nb);
