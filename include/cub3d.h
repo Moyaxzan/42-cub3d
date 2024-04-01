@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 22:09:14 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:31:01 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_player {
 
 typedef struct s_map {
 	char	*file_path;
+	char	*line;
 	int		fd;
 	char	**map_tab;
 	int		map_height;
@@ -70,7 +71,7 @@ int		ft_is_empty_line(char *line);
 void	free_dchartab(char **tab);
 int		ft_isnum(char *str);
 int		parse_map(t_data *data);
-
+int		finish_gnl(t_data *data);
 int		file_parserr(char *line, int line_nb);
 /*---------arg_parsing.c---------*/
 int		arg_parsing(int argc, char **argv, t_data *data);

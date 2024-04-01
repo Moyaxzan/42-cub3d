@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 22:33:26 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:54:40 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,57 +79,79 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 	return (SUCCESS);
 }
 
-int	store_map(t_data *data, char *line)
+int	store_map(t_data *data)
 {
 	int	height;
 	int	length;
+	int	valid;
 	
 	height = 0;
 	length = 0;
-	while (line && !ft_valid_map_line(data, &line, height) && !ft_is_empty_line(line))
+	valid = ft_valid_map_line(data, &data->map->line, height);
+	while (data->map->line && !valid && !ft_is_empty_line(data->map->line))
 	{
-		data->map->map_tab = ft_strjoin_map(data->map->map_tab, line);
+		data->map->map_tab = ft_strjoin_map(data->map->map_tab, data->map->line);
 		if (!data->map->map_tab)
 			return (strerror(ENOMEM), UNKNOWN_ERROR); // Error failed malloc in the join
-		length = ft_strlen(line);
+		length = ft_strlen(data->map->line);
 		if (length > data->map->map_width)
 			data->map->map_width = length;
 		height++;
-		line = get_next_line(data->map->fd); // last line lost
+		data->map->line = get_next_line(data->map->fd); // last line lost
+		valid = ft_valid_map_line(data, &data->map->line, height);
+		if (valid)
+			return (PARSING_ERROR);
 	}
 	data->map->map_height = height;
 	return (SUCCESS);
 }
 
+int	finish_gnl(t_data *data)
+{
+	int	error;
+	
+	error = 0;
+	if (!data->map->line)
+		data->map->line = get_next_line(data->map->fd);
+	while (data->map->line) //reads until EOF, gets an error if anything else than whitespaces is encountered
+	{
+		if (data->map->line && !ft_is_empty_line(data->map->line))
+			error = 1;
+		free(data->map->line);
+		data->map->line = get_next_line(data->map->fd);
+	}
+	free(data->map->line);
+	return (error);
+}
+
 int	parse_map(t_data *data)
 {
-	char	*line;
-	
-	line = get_next_line(data->map->fd);
-	while (line && ft_is_empty_line(line))
+	data->map->line = get_next_line(data->map->fd);
+	while (data->map->line && ft_is_empty_line(data->map->line))
 	{
-		free(line);
-		line = get_next_line(data->map->fd);
+		free(data->map->line);
+		data->map->line = get_next_line(data->map->fd);
 	}
-	if (!line)
+	if (!ft_is_empty_line(data->map->line) && ft_valid_map_line(data, &data->map->line, 0))
+	{
+		finish_gnl(data);
+		return (PARSING_ERROR);
+	}
+	if (!data->map->line)
 		return (PARSING_ERROR);
 	data->map->map_tab = malloc(sizeof(char *));
 	if (!data->map->map_tab)
 		return (strerror(ENOMEM), UNKNOWN_ERROR); //error malloc on map tab
 	data->map->map_tab[0] = NULL;
-	store_map(data, line);
+	if (store_map(data))
+		return (PARSING_ERROR);
 	if (data->player->pos_x == -1 || data->player->pos_y == -1 \
 	|| !data->player->orient)
 		return (PARSING_ERROR); // No player in map
-	while (line) //reads until EOF, gets an error if anything else than whitespaces is encountered
+	if (data->map->line)
 	{
-		if (!ft_is_empty_line(line))
-		{
-			// error unknown characters on file + free map
+		if (finish_gnl(data))
 			return (PARSING_ERROR);
-		}
-		free(line);
-		line = get_next_line(data->map->fd);
 	}
 	return (SUCCESS);
 }

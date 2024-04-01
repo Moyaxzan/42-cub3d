@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/03/26 22:15:27 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:59:51 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	file_parserr(char *line, int line_nb)
 		ft_putnbr_fd(line_nb, 2);
 		write(2, ": ", 2);
 		write(2, line, ft_strlen(line));
-		free(line);
 	}
 	else
 		write(2, "Error\nmissing informations\n", 26);
@@ -85,26 +84,25 @@ int	fill_element(t_data *data, char *line)
 
 int	parse_elements(t_data *data, int *line_nb)
 {
-	char	*line;
 	int		nb_elem;
 	int		filled;
 
 	nb_elem = 0;
 	filled = 0;
-	line = get_next_line(data->map->fd);
-	while (line && nb_elem < 6)
+	data->map->line = get_next_line(data->map->fd);
+	while (data->map->line && nb_elem < 6)
 	{
-		filled = fill_element(data, line);
+		filled = fill_element(data, data->map->line);
 		if (errno == ENOMEM)
 			return (strerror(errno), UNKNOWN_ERROR);
 		else if (filled == PARSING_ERROR)
-			return (file_parserr(line, *line_nb));
+			return (file_parserr(data->map->line, *line_nb));
 		else if (filled)
 			nb_elem++;
-		free(line);
+		free(data->map->line);
 		if (nb_elem == 6)
 			break ;
-		line = get_next_line(data->map->fd);
+		data->map->line = get_next_line(data->map->fd);
 		(*line_nb)++;
 	}
 	return (SUCCESS);
@@ -113,8 +111,15 @@ int	parse_elements(t_data *data, int *line_nb)
 int	file_parsing(t_data *data, int *line_nb)
 {
 	if (parse_elements(data, line_nb))
+	{
+		finish_gnl(data);
 		return (PARSING_ERROR);
+	}
 	if (parse_map(data))
+	{
+		// data->map->line = get_next_line(data->map->fd);
+		finish_gnl(data);
 		return (PARSING_ERROR);
+	}
 	return (SUCCESS);
 }
