@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/01 20:29:59 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 11:33:09 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,10 @@ void	print_map(t_map *map)
 	printf("map->floor = %x\n", map->floor);
 	printf("map->height = %d\n", map->map_height);
 	printf("map->width = %d\n", map->map_width);
-	printf("map->map_tab = \n");
-	for (int i = 0; map->map_tab[i]; i++)
-	{
-		printf("%s", map->map_tab[i]);
-	}
+	printf("map->map_tab = %p\n", map->map_tab);
+	if (map->map_tab)
+		for (int i = 0; map->map_tab[i]; i++)
+			printf("%s", map->map_tab[i]);
 }
 
 void	help(void)

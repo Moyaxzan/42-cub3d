@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/01 20:29:42 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 12:16:39 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ int		map_checks(t_data *data);
 int		parse_map(t_data *data);
 int		finish_gnl(t_data *data);
 int		file_parserr(char *line, int line_nb);
+
+
+/*-----------rgb.c-----------*/
+int		rgb_to_int(char *line);
+
 /*---------arg_parsing.c---------*/
 int		arg_parsing(int argc, char **argv, t_data *data);
 int		file_parsing(t_data *data, int *line_nb);

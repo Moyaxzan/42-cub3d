@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/01 20:23:29 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 11:42:49 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	finish_gnl(t_data *data)
 		data->map->line = get_next_line(data->map->fd);
 	}
 	free(data->map->line);
+	data->map->line = NULL;
 	return (error);
 }
 
@@ -108,10 +109,7 @@ int	parse_map(t_data *data)
 		data->map->line = get_next_line(data->map->fd);
 	}
 	if (!ft_is_empty_line(data->map->line) && ft_valid_map_line(data, &data->map->line, 0))
-	{
-		finish_gnl(data);
 		return (PARSING_ERROR);
-	}
 	if (!data->map->line)
 		return (PARSING_ERROR);
 	data->map->map_tab = malloc(sizeof(char *));

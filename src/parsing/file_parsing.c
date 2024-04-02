@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/01 20:33:04 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 12:17:39 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,6 @@ int	file_parserr(char *line, int line_nb)
 	else
 		write(2, "Error\nmissing informations\n", 26);
 	return (PARSING_ERROR);
-}
-
-// split with ',' ? check if 3 componoents + atoi + bitshift
-// implement error messages
-
-int	rgb_to_int(char *rgb)
-{
-	char	**split_rgb;
-	int		cpt;
-	int		res;
-	
-	if (!rgb)
-		return (-1);
-	split_rgb = ft_split(rgb, ',');
-	if (!split_rgb)
-		return (free(rgb), free_dchartab(split_rgb), -1);
-	cpt = 0;
-	while (split_rgb[cpt])
-		cpt++;
-	if (cpt != 3)
-		return (free(rgb), free_dchartab(split_rgb), -1);
-	cpt = 0;
-	res = 0;
-	while (split_rgb[cpt])
-	{
-		if (!ft_isnum(split_rgb[cpt]))
-			return (free(rgb), free_dchartab(split_rgb), -1);
-		res = (res << 8) + ft_atoi(split_rgb[cpt++]);
-	}
-	free_dchartab(split_rgb);
-	free(rgb);
-	return (res);
 }
 
 //protect strtrim !!
