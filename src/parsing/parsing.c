@@ -19,19 +19,6 @@ void	ft_errornl(char *str)
 	ft_putstr_fd("\n", 2);
 }
 
-int	ft_isnum(char *str)
-{
-	if (!str)
-		return (0);
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
 void	free_dchartab(char **tab)
 {
 	int	i;
@@ -42,25 +29,6 @@ void	free_dchartab(char **tab)
 	while (tab[i])
 		free(tab[i++]);
 	free(tab);
-}
-
-int	ft_isspace(int c)
-{
-	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' \
-		|| c == '\v' || c == '\f');
-}
-
-int	ft_is_empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line && line[i])
-	{
-		if (!ft_isspace(line[i++]))
-			return (0);
-	}
-	return (1);
 }
 
 int	parsing(int argc, char **argv, t_data *data)

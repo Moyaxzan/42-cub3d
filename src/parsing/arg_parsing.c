@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arg_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:01:02 by tsaint-p          #+#    #+#             */
 /*   Updated: 2024/04/02 12:54:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 //checks if the map extension is indeed .cub
 
