@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 14:31:07 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:31:49 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ int	parse_elements(t_data *data, int *line_nb)
 int	check_texture_path(t_data *data)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (open(data->map->walls[i++], O_RDONLY) == -1)
-			return (ft_errornl(strerror(errno)), PARSING_ERROR);
+		fd = open(data->map->walls[i++], O_RDONLY);
+		if (fd == -1)
+			return (ft_errornl(strerror(errno)), cherr_code(data, errno));
+		close(fd);
 	}
 	return (0);
 }

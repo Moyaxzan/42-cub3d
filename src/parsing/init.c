@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:47:52 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 12:48:26 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 15:33:32 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_data	*init_data(void)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
+	data->err_code = 0;
 	data->map = init_map();
 	if (!data->map)
 		return (free(data), NULL);
