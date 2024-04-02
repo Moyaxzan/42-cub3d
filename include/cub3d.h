@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 15:43:18 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:27:25 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,16 @@
 # define EAST 3
 
 //player (coord, orientation)
-typedef struct s_player {
+typedef struct s_player
+{
 	char	orient;
 	int		pos_x;
 	int		pos_y;
 }	t_player;
 
 //map (images, floor, plafond, map_table)
-typedef struct s_map {
+typedef struct s_map
+{
 	char	*file_path;
 	char	*line;
 	int		fd;
@@ -57,7 +59,8 @@ typedef struct s_map {
 }	t_map;
 
 //data(map, player)
-typedef struct s_data {
+typedef struct s_data
+{
 	int			err_code;
 	t_player	*player;
 	t_map		*map;
@@ -78,10 +81,8 @@ typedef struct s_window
 	void	*win_ptr;
 }	t_window;
 
-
-
 /*-----------main.c----------*/
-int		cherr_code(t_data *data, int err_code);
+int			cherr_code(t_data *data, int err_code);
 
 /*______________________PARSING_________________________*/
 
