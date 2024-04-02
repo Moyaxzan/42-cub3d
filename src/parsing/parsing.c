@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:27:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/01 15:50:39 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 12:51:39 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,9 @@ int	ft_is_empty_line(char *line)
 int	parsing(int argc, char **argv, t_data *data)
 {
 	int	line_nb;
-	int	ret_val;
 
-	ret_val = arg_parsing(argc, argv, data);
-	if (ret_val)
-		return (ret_val);
+	if (arg_parsing(argc, argv, data))
+		return (data->err_code);
 	line_nb = 1;
-	ret_val = file_parsing(data, &line_nb);
-	return (ret_val);
+	return (file_parsing(data, &line_nb));
 }

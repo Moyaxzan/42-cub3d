@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 12:16:39 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:00:28 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ typedef struct s_map {
 //data(map, player)
 //
 typedef struct s_data {
+	int			err_code;
 	t_player	*player;
 	t_map		*map;
 }	t_data;
 
+/*-----------main.c----------*/
+int		cherr_code(t_data *data, int err_code);
 
 /*---------parsing.c---------*/
 int		parsing(int argc, char **argv, t_data *data);
@@ -75,7 +78,7 @@ int		ft_isspace(int c);
 int		map_checks(t_data *data);
 int		parse_map(t_data *data);
 int		finish_gnl(t_data *data);
-int		file_parserr(char *line, int line_nb);
+int		file_parserr(t_data *data, char *line, int line_nb);
 
 
 /*-----------rgb.c-----------*/

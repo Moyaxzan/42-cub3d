@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 11:33:09 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:46:15 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_data	*init_data(void)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
+	data->err_code = 0;
 	data->map = init_map();
 	if (!data->map)
 		return (free(data), NULL);
@@ -69,10 +70,12 @@ void	ft_free(void *ptr)
 		free(ptr);
 }
 
-void	clean_exit(t_data *data)
+int	clean_exit(t_data *data)
 {
+	int	ret_val;
+
 	if (!data)
-		return ;
+		return (UNKNOWN_ERROR);
 	if (data->map)
 	{
 		ft_free(data->map->file_path);
@@ -87,7 +90,9 @@ void	clean_exit(t_data *data)
 		ft_free(data->map);
 	}
 	ft_free(data->player);
+	ret_val = data->err_code;
 	free(data);
+	return (ret_val);
 }
 
 void	print_player(t_player *player)
@@ -136,15 +141,20 @@ void	help(void)
 	printf("  - The map content always has to be the last element of the file.\n");
 }
 
+int	cherr_code(t_data *data, int err_code)
+{
+	data->err_code = err_code;
+	return (err_code);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 	data = init_data();
 	if (!data)
-		return (-1);
+		return (ENOMEM);
 	parsing(argc, argv, data);
 	// print_map(data->map);
 	// print_player(data->player);
-	clean_exit(data);
-	return (0);
+	return (clean_exit(data));
 }

@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:01:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 11:12:01 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:54:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ int	check_map_extension(char *str)
 int	arg_parsing(int argc, char **argv, t_data *data)
 {
 	if (argc != 2)
-		return (ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n"), PARSING_ERROR);
-	else if (argv[1])
-	{
-		if (check_map_extension(argv[1]))
-			return (ft_errornl("Invalid map extension. Expected : *.cub\n"), PARSING_ERROR);
-		data->map->fd = open(argv[1], O_RDONLY);
-		if (data->map->fd == -1)
-			return (ft_errornl(strerror(errno)), PARSING_ERROR);
-	}
+		return (ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n")
+			, cherr_code(data, PARSING_ERROR));
+	if (check_map_extension(argv[1]))
+		return (ft_errornl("Invalid map extension. Expected : *.cub\n")
+			, cherr_code(data, PARSING_ERROR));
+	data->map->fd = open(argv[1], O_RDONLY);
+	if (data->map->fd == -1)
+		return (ft_errornl(strerror(errno)), cherr_code(data, errno));
 	return (0);
 }
