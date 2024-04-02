@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:15:26 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 12:18:42 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:45:58 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ int	rgb_to_int(char *line)
 	}
 	return (free_dchartab(split_rgb), free(line), res);
 }
-

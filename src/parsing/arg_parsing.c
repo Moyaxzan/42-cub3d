@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   arg_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:01:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 11:12:01 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 12:27:55 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 //checks if the map extension is indeed .cub
 
@@ -30,11 +30,13 @@ int	check_map_extension(char *str)
 int	arg_parsing(int argc, char **argv, t_data *data)
 {
 	if (argc != 2)
-		return (ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n"), PARSING_ERROR);
+		return (ft_errornl("Invalid arguments. Usage : ./cub3D \
+[path_to_map]\n"), PARSING_ERROR);
 	else if (argv[1])
 	{
 		if (check_map_extension(argv[1]))
-			return (ft_errornl("Invalid map extension. Expected : *.cub\n"), PARSING_ERROR);
+			return (ft_errornl("Invalid map extension. Expected : *.cub\n"), \
+			PARSING_ERROR);
 		data->map->fd = open(argv[1], O_RDONLY);
 		if (data->map->fd == -1)
 			return (ft_errornl(strerror(errno)), PARSING_ERROR);

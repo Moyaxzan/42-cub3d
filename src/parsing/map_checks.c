@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:32:06 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/01 20:34:21 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 13:00:28 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*replace_line(t_data *data, char *line)
 	}
 	new_line[i - 1] = '\n';
 	new_line[i] = '\0';
-	return (new_line);	
+	return (new_line);
 }
 
 int	fill_map(t_data *data)
@@ -58,13 +58,6 @@ int	fill_map(t_data *data)
 	return (SUCCESS);
 }
 
-int	space_or_one(char c)
-{
-	if (ft_isspace(c) || c == '1')
-		return (0);
-	return (1);
-}
-
 int	check_borders(t_data *data)
 {
 	int	i;
@@ -72,14 +65,16 @@ int	check_borders(t_data *data)
 	i = 0;
 	while (i < data->map->map_width)
 	{
-		if (space_or_one(data->map->map_tab[0][i]) || space_or_one(data->map->map_tab[data->map->map_height - 1][i]))
+		if (space_or_one(data->map->map_tab[0][i]) || \
+		space_or_one(data->map->map_tab[data->map->map_height - 1][i]))
 			return (PARSING_ERROR);
 		i++;
 	}
 	i = 0;
 	while (i < data->map->map_height)
 	{
-		if (space_or_one(data->map->map_tab[i][0]) || space_or_one(data->map->map_tab[i][data->map->map_width - 2]))
+		if (space_or_one(data->map->map_tab[i][0]) || \
+		space_or_one(data->map->map_tab[i][data->map->map_width - 2]))
 			return (PARSING_ERROR);
 		i++;
 	}
@@ -125,7 +120,8 @@ int	map_checks(t_data *data)
 		j = 0;
 		while (data->map->map_tab[i][j])
 		{
-			if (ft_isspace(data->map->map_tab[i][j]) && data->map->map_tab[i][j] != '\n')
+			if (ft_isspace(data->map->map_tab[i][j]) && \
+			data->map->map_tab[i][j] != '\n')
 			{
 				if (invalid_block_around(data, i, j))
 					return (PARSING_ERROR);
