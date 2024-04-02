@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 13:00:28 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:43:18 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+# include <X11/X.h>
+
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 800
 
 # define SUCCESS 0
 # define PARSING_ERROR 3
@@ -58,6 +62,23 @@ typedef struct s_data {
 	t_player	*player;
 	t_map		*map;
 }	t_data;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef struct s_window
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_window;
+
+
 
 /*-----------main.c----------*/
 int		cherr_code(t_data *data, int err_code);
