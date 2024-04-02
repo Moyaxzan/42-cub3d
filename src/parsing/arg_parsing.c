@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:01:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/03/26 13:17:29 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:12:01 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_map_extension(char *str)
 int	arg_parsing(int argc, char **argv, t_data *data)
 {
 	if (argc != 2)
-		ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n");
+		return (ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n"), PARSING_ERROR);
 	else if (argv[1])
 	{
 		if (check_map_extension(argv[1]))
