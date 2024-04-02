@@ -18,10 +18,12 @@ void	ft_free(void *ptr)
 		free(ptr);
 }
 
-void	clean_exit(t_data *data)
+int	clean_exit(t_data *data)
 {
+	int	ret_val;
+
 	if (!data)
-		return ;
+		return (UNKNOWN_ERROR);
 	if (data->map)
 	{
 		ft_free(data->map->file_path);
@@ -36,7 +38,9 @@ void	clean_exit(t_data *data)
 		ft_free(data->map);
 	}
 	ft_free(data->player);
+	ret_val = data->err_code;
 	free(data);
+	return (ret_val);
 }
 
 // void	print_player(t_player *player)
@@ -88,14 +92,21 @@ and orientation.\n");
 of the file.\n");
 }
 
+int	cherr_code(t_data *data, int err_code)
+{
+	data->err_code = err_code;
+	return (err_code);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 
 	data = init_data();
 	if (!data)
-		return (-1);
+		return (ENOMEM);
 	parsing(argc, argv, data);
-	clean_exit(data);
-	return (0);
+	// print_map(data->map);
+	// print_player(data->player);
+	return (clean_exit(data));
 }

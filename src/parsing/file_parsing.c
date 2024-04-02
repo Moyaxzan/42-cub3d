@@ -12,7 +12,7 @@
 
 #include "../../include/cub3d.h"
 
-int	file_parserr(char *line, int line_nb)
+int	file_parserr(t_data *data, char *line, int line_nb)
 {
 	if (line)
 	{
@@ -23,10 +23,9 @@ int	file_parserr(char *line, int line_nb)
 	}
 	else
 		write(2, "Error\nmissing informations\n", 26);
-	return (PARSING_ERROR);
+	return (cherr_code(data, PARSING_ERROR));
 }
 
-//protect strtrim !!
 int	fill_element(t_data *data, char *line)
 {
 	while (*line && ft_isspace(*line))
@@ -62,9 +61,9 @@ int	parse_elements(t_data *data, int *line_nb)
 	{
 		filled = fill_element(data, data->map->line);
 		if (errno == ENOMEM)
-			return (strerror(errno), UNKNOWN_ERROR);
+			return (strerror(errno), cherr_code(data, ENOMEM));
 		else if (filled == PARSING_ERROR)
-			return (file_parserr(data->map->line, *line_nb));
+			return (file_parserr(data, data->map->line, *line_nb));
 		else if (filled)
 			nb_elem++;
 		free(data->map->line);
@@ -94,16 +93,16 @@ int	file_parsing(t_data *data, int *line_nb)
 	if (parse_elements(data, line_nb))
 	{
 		finish_gnl(data);
-		return (PARSING_ERROR);
+		return (data->err_code);
 	}
 	if (parse_map(data))
 	{
 		finish_gnl(data);
-		return (PARSING_ERROR);
+		return (data->err_code);
 	}
 	if (check_texture_path(data))
 		return (PARSING_ERROR);
 	if (map_checks(data))
-		return (PARSING_ERROR);
+		return (data->err_code);
 	return (SUCCESS);
 }

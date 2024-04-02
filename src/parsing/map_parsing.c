@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 12:41:49 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 13:23:08 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 		if (ft_is_player_pos((*line)[i]))
 		{
 			if (get_player_pos(data, (*line)[i], y, i))
-				return (0);
+				return (cherr_code(data, PARSING_ERROR));
 			(*line)[i] = '0';
 		}
 		else if ((*line)[i] != '0' && (*line)[i] != '1' \
 		&& !ft_isspace((*line)[i]))
-			return (0);
+			return (cherr_code(data, PARSING_ERROR));
 		i++;
 	}
 	return (1);
@@ -64,7 +64,7 @@ int	store_map(t_data *data)
 		data->map->map_tab = ft_strjoin_map(data->map->map_tab, \
 		data->map->line);
 		if (!data->map->map_tab)
-			return (strerror(ENOMEM), UNKNOWN_ERROR);
+			return (strerror(ENOMEM), cherr_code(data, ENOMEM));
 		length = ft_strlen(data->map->line);
 		if (length > data->map->map_width)
 			data->map->map_width = length;
@@ -72,7 +72,7 @@ int	store_map(t_data *data)
 		data->map->line = get_next_line(data->map->fd);
 		valid = ft_valid_map_line(data, &data->map->line, height);
 		if (!valid)
-			return (PARSING_ERROR);
+			return (data->err_code);
 	}
 	data->map->map_height = height;
 	return (SUCCESS);
@@ -107,21 +107,21 @@ int	parse_map(t_data *data)
 	}
 	if (!ft_is_empty_line(data->map->line) && \
 	!ft_valid_map_line(data, &data->map->line, 0))
-		return (PARSING_ERROR);
+		return (cherr_code(data, PARSING_ERROR));
 	if (!data->map->line)
-		return (PARSING_ERROR);
+		return (cherr_code(data, PARSING_ERROR));
 	data->map->map_tab = malloc(sizeof(char *));
 	if (!data->map->map_tab)
-		return (strerror(ENOMEM), UNKNOWN_ERROR);
+		return (strerror(ENOMEM), cherr_code(data, ENOMEM));
 	if (store_map(data))
-		return (PARSING_ERROR);
+		return (data->err_code);
 	if (data->player->pos_x == -1 || data->player->pos_y == -1 \
 	|| !data->player->orient)
-		return (PARSING_ERROR);
+		return (cherr_code(data, PARSING_ERROR));
 	if (data->map->line)
 	{
 		if (finish_gnl(data))
-			return (PARSING_ERROR);
+			return (cherr_code(data, PARSING_ERROR));
 	}
 	return (SUCCESS);
 }

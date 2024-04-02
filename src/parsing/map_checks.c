@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:32:06 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 13:00:28 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/02 13:37:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	fill_map(t_data *data)
 		{
 			data->map->map_tab[i] = replace_line(data, data->map->map_tab[i]);
 			if (!data->map->map_tab[i])
-				return (strerror(ENOMEM), UNKNOWN_ERROR);
+				return (strerror(ENOMEM), cherr_code(data, ENOMEM));
 		}
 		i++;
 	}
@@ -112,9 +112,9 @@ int	map_checks(t_data *data)
 
 	i = 0;
 	if (fill_map(data))
-		return (PARSING_ERROR);
+		return (data->err_code);
 	if (check_borders(data))
-		return (PARSING_ERROR);
+		return (cherr_code(data, PARSING_ERROR));
 	while (data->map->map_tab[i])
 	{
 		j = 0;
@@ -124,7 +124,7 @@ int	map_checks(t_data *data)
 			data->map->map_tab[i][j] != '\n')
 			{
 				if (invalid_block_around(data, i, j))
-					return (PARSING_ERROR);
+					return (cherr_code(data, PARSING_ERROR));
 			}
 			j++;
 		}
