@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 15:44:07 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:26:56 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	init_mlx(t_window *window)
 	if (!window->mlx_ptr)
 		return (MLX_ERROR);
 	window->win_ptr
-		= mlx_new_window(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "fract'ol");
+		= mlx_new_window(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	if (!window->win_ptr)
 	{
 		free(window->mlx_ptr);
@@ -26,6 +26,20 @@ int	init_mlx(t_window *window)
 	}
 	return (0);
 }
+
+void	exit_mlx(t_window *window)
+{
+	if (!window)
+		return ;
+	if (!window->mlx_ptr)
+		return (free(window));
+	// mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
+	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
+	mlx_destroy_display(window->mlx_ptr);
+	free(window->mlx_ptr);
+	free(window);
+	window = NULL;
+} 
 
 t_window	*init_window(void)
 {

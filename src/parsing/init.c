@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:47:52 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 15:33:32 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:24:12 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@ t_data	*init_data(void)
 	data->player = init_player();
 	if (!data->player)
 		return (free(data->map), free(data), NULL);
+	data->window = init_window();
+	if (!data->window)
+		return (NULL);
 	return (data);
 }

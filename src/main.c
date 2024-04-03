@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 12:58:55 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/03 16:27:59 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	clean_exit(t_data *data)
 	int	ret_val;
 
 	if (!data)
-		return (UNKNOWN_ERROR);
+		return (ENOMEM);
 	if (data->map)
 	{
 		ft_free(data->map->file_path);
@@ -39,6 +39,7 @@ int	clean_exit(t_data *data)
 	}
 	ft_free(data->player);
 	ret_val = data->err_code;
+	exit_mlx(data->window);
 	free(data);
 	return (ret_val);
 }
@@ -104,8 +105,9 @@ int	main(int argc, char **argv)
 
 	data = init_data();
 	if (!data)
-		return (ENOMEM);
+		return (clean_exit(data), ENOMEM);
 	parsing(argc, argv, data);
+	init_mlx(data->window);
 	// print_map(data->map);
 	// print_player(data->player);
 	return (clean_exit(data));

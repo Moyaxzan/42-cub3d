@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 17:27:25 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:27:22 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ typedef struct s_map
 	int		floor;
 }	t_map;
 
-//data(map, player)
-typedef struct s_data
-{
-	int			err_code;
-	t_player	*player;
-	t_map		*map;
-}	t_data;
-
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -80,6 +72,15 @@ typedef struct s_window
 	void	*mlx_ptr;
 	void	*win_ptr;
 }	t_window;
+
+//data(map, player)
+typedef struct s_data
+{
+	int			err_code;
+	t_player	*player;
+	t_map		*map;
+	t_window	*window;
+}	t_data;
 
 /*-----------main.c----------*/
 int			cherr_code(t_data *data, int err_code);
@@ -122,5 +123,10 @@ int			ft_isnum(char *str);
 
 /*-----------utils.c-----------*/
 char		**ft_strjoin_map(char **tab, char *line);
+
+/*----------mlx_utils.c---------*/
+t_window	*init_window(void);
+int			init_mlx(t_window *window);
+void		exit_mlx(t_window *window);
 
 #endif
