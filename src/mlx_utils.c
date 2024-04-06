@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/03 16:26:56 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/06 16:16:30 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ int	init_mlx(t_window *window)
 		return (MLX_ERROR);
 	window->win_ptr
 		= mlx_new_window(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
+	window->image = malloc(sizeof(t_img));
+	if (!window->image)
+		return (free(window->mlx_ptr), ENOMEM);
+	window->image->mlx_img = mlx_new_image(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	if (!window->image->mlx_img)
+		return (MLX_ERROR);
+	window->image->addr = mlx_get_data_addr
+		(window->image->mlx_img, &(window->image->bpp),
+			&(window->image->line_len), &(window->image->endian));
+	if (!window->image->addr)
+		return (MLX_ERROR);
 	if (!window->win_ptr)
 	{
 		free(window->mlx_ptr);
@@ -33,7 +44,8 @@ void	exit_mlx(t_window *window)
 		return ;
 	if (!window->mlx_ptr)
 		return (free(window));
-	// mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
+	if (window->image->mlx_img)
+		mlx_destroy_image(window->mlx_ptr, window->image->mlx_img);
 	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
@@ -70,11 +82,20 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-int	hook_n_loop(t_window *window)
+
+// inputs handleing
+
+int	handle_cross(t_data *data)
+{
+	clean_exit(data);
+	return (0);
+} 
+
+int	hook_n_loop(t_data *data)
 {
 	// mlx_key_hook(window->win_ptr, &handle_input, window);
 	// mlx_mouse_hook(window->win_ptr, &mouse_events, window);
-	// mlx_hook(window->win_ptr, DestroyNotify, 0, &handle_cross, window);
-	mlx_loop(window->mlx_ptr);
+	mlx_hook(data->window->win_ptr, DestroyNotify, 0, &handle_cross, data);
+	mlx_loop(data->window->mlx_ptr);
 	return (0);
 }

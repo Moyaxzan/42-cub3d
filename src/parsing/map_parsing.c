@@ -6,19 +6,28 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 13:23:08 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:41:42 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+/**/
 int	get_player_pos(t_data *data, char c, int y, int x)
 {
-	if (data->player->orient)
+	if (data->player->orient_rad)
 		return (PARSING_ERROR);
-	data->player->orient = c;
-	data->player->pos_x = x;
-	data->player->pos_y = y;
+	if (c == 'N')
+		data->player->orient_rad = M_PI / 2;
+	else if (c == 'E')
+		data->player->orient_rad = 0;
+	else if (c == 'S')
+		data->player->orient_rad = -1 * (M_PI / 2);
+	else if (c == 'W')
+		data->player->orient_rad = M_PI;
+	// check if cast is working
+	data->player->pos_x = (double) x;
+	data->player->pos_y = (double) y;
 	return (SUCCESS);
 }
 

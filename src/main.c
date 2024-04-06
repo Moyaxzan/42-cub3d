@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/03 16:27:59 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/06 15:46:08 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int	main(int argc, char **argv)
 		return (clean_exit(data), ENOMEM);
 	parsing(argc, argv, data);
 	init_mlx(data->window);
+	ft_render(data);
+	hook_n_loop(data);
 	// print_map(data->map);
 	// print_player(data->player);
 	return (clean_exit(data));

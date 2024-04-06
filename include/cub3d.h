@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/03 16:27:22 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/06 16:38:49 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <errno.h>
 # include <X11/X.h>
+# include <math.h>
 
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
@@ -36,12 +37,20 @@
 # define WEST 2
 # define EAST 3
 
+typedef struct s_ray
+{
+	double	x;
+	double	y;
+	double	len;
+}	t_ray;
+
 //player (coord, orientation)
 typedef struct s_player
 {
-	char	orient;
-	int		pos_x;
-	int		pos_y;
+	int			fov;
+	int			orient_rad;
+	double		pos_x;
+	double		pos_y;
 }	t_player;
 
 //map (images, floor, plafond, map_table)
@@ -71,6 +80,7 @@ typedef struct s_window
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_img	*image;
 }	t_window;
 
 //data(map, player)
@@ -84,6 +94,7 @@ typedef struct s_data
 
 /*-----------main.c----------*/
 int			cherr_code(t_data *data, int err_code);
+int			clean_exit(t_data *data);
 
 /*______________________PARSING_________________________*/
 
@@ -128,5 +139,10 @@ char		**ft_strjoin_map(char **tab, char *line);
 t_window	*init_window(void);
 int			init_mlx(t_window *window);
 void		exit_mlx(t_window *window);
+int			hook_n_loop(t_data *data);
+void		img_pix_put(t_img *img, int x, int y, int color);
+
+/*----------render.c---------*/
+int			ft_render(t_data *data);
 
 #endif
