@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/09 00:33:00 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 00:35:16 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	draw_col(t_data *data, double dist, int side, int x)
 	if (start_wall < 0)
 		start_wall = 0;
 	if (side)
-		color = color / 2;
+		color = color - 0x444444;
 	while (cpt_drawn < wall_height && cpt_drawn + start_wall < WIN_HEIGHT)
 	{
 		img_pix_put(data->window->image, x, cpt_drawn + start_wall, color);
