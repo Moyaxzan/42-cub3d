@@ -6,28 +6,27 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/06 16:41:42 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 19:18:15 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
 /**/
+// check if cast is working
 int	get_player_pos(t_data *data, char c, int y, int x)
 {
-	if (data->player->orient_rad)
+	if (data->player->pos.x != data->player->pos.y)
 		return (PARSING_ERROR);
 	if (c == 'N')
-		data->player->orient_rad = M_PI / 2;
-	else if (c == 'E')
-		data->player->orient_rad = 0;
+		ch_plr_dir(data->player, (t_vect) {-1, 0}, (t_vect) {0, 0.66});
 	else if (c == 'S')
-		data->player->orient_rad = -1 * (M_PI / 2);
+		ch_plr_dir(data->player, (t_vect) {1, 0}, (t_vect) {0, -0.66});
+	else if (c == 'E')
+		ch_plr_dir(data->player, (t_vect) {0, 1}, (t_vect) {0.66, 0});
 	else if (c == 'W')
-		data->player->orient_rad = M_PI;
-	// check if cast is working
-	data->player->pos_x = (double) x;
-	data->player->pos_y = (double) y;
+		ch_plr_dir(data->player, (t_vect) {0, -1}, (t_vect) {-0.66, 0});
+	data->player->pos = (t_vect){(double) x, (double) y};
 	return (SUCCESS);
 }
 
@@ -47,12 +46,12 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 		if (ft_is_player_pos((*line)[i]))
 		{
 			if (get_player_pos(data, (*line)[i], y, i))
-				return (cherr_code(data, PARSING_ERROR));
+				return (cherr_code(data, PARSING_ERROR), 0);
 			(*line)[i] = '0';
 		}
 		else if ((*line)[i] != '0' && (*line)[i] != '1' \
 		&& !ft_isspace((*line)[i]))
-			return (cherr_code(data, PARSING_ERROR));
+			return (cherr_code(data, PARSING_ERROR), 0);
 		i++;
 	}
 	return (1);
@@ -124,8 +123,8 @@ int	parse_map(t_data *data)
 		return (strerror(ENOMEM), cherr_code(data, ENOMEM));
 	if (store_map(data))
 		return (data->err_code);
-	if (data->player->pos_x == -1 || data->player->pos_y == -1 \
-	|| !data->player->orient)
+	//still working ?
+	if (data->player->pos.x == -1 || data->player->pos.y == -1)
 		return (cherr_code(data, PARSING_ERROR));
 	if (data->map->line)
 	{

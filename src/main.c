@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/06 15:46:08 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 19:21:08 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	main(int argc, char **argv)
 	data = init_data();
 	if (!data)
 		return (clean_exit(data), ENOMEM);
-	parsing(argc, argv, data);
+	if (parsing(argc, argv, data))
+		return (clean_exit(data));
 	init_mlx(data->window);
 	ft_render(data);
 	hook_n_loop(data);

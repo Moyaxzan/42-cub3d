@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/06 16:38:49 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 18:47:14 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,24 @@
 # define WEST 2
 # define EAST 3
 
-typedef struct s_ray
+typedef	struct s_vect
 {
 	double	x;
 	double	y;
+}	t_vect;
+
+typedef struct s_ray
+{
+	t_vect	sides;
 	double	len;
 }	t_ray;
 
 //player (coord, orientation)
 typedef struct s_player
 {
-	int			fov;
-	int			orient_rad;
-	double		pos_x;
-	double		pos_y;
+	t_vect		pos;
+	t_vect		dir;
+	t_vect		plane;
 }	t_player;
 
 //map (images, floor, plafond, map_table)
@@ -144,5 +148,6 @@ void		img_pix_put(t_img *img, int x, int y, int color);
 
 /*----------render.c---------*/
 int			ft_render(t_data *data);
+int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
 
 #endif
