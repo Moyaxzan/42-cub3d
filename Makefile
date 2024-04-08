@@ -3,7 +3,7 @@ NAME		=	cub3D
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -I./include -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -I./include -g #-fsanitize=address
 
 SRC_DIR		=	src
 

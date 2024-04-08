@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/08 20:57:32 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 23:26:49 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ int	store_map(t_data *data)
 		if (!data->map->map_tab)
 			return (strerror(ENOMEM), cherr_code(data, ENOMEM));
 		length = ft_strlen(data->map->line);
-		if (length > data->map->map_width)
-			data->map->map_width = length;
+		if (length > data->map->width)
+			data->map->width = length;
 		height++;
 		data->map->line = get_next_line(data->map->fd);
 		valid = ft_valid_map_line(data, &data->map->line, height);
 		if (!valid)
 			return (data->err_code);
 	}
-	data->map->map_height = height;
+	data->map->height = height;
 	return (SUCCESS);
 }
 

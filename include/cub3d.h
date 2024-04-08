@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/08 21:07:04 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 23:25:31 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_ray
 	t_vect	side;
 	t_vect	delta;
 	t_vect	step;
-	double	len;
 }	t_ray;
 
 //player (coord, orientation)
@@ -68,8 +67,8 @@ typedef struct s_map
 	char	*line;
 	int		fd;
 	char	**map_tab;
-	int		map_height;
-	int		map_width;
+	int		height;
+	int		width;
 	char	*walls[4];
 	int		ceiling;
 	int		floor;

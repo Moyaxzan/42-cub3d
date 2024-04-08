@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:47:52 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/08 18:56:10 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 23:26:07 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_map	*init_map(void)
 	map->ceiling = 0;
 	map->floor = 0;
 	map->fd = 0;
-	map->map_height = 0;
-	map->map_width = 0;
+	map->height = 0;
+	map->width = 0;
 	map->line = NULL;
 	return (map);
 }

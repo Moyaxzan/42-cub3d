@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/08 21:14:19 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 00:33:00 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,17 @@ void	get_sidendist(t_player *plr, t_ray *ray)
 
 void	get_delta(t_ray *ray)
 {
-	t_vect	vector;
-
 	if (!ray->dir.x)
 		ray->delta.x = INT_MAX;
 	else
 		ray->delta.x = fabs(1 / ray->dir.x);
 	if (!ray->dir.y)
-		ray->delta.x = INT_MAX;
+		ray->delta.y = INT_MAX;
 	else
 		ray->delta.y = fabs(1 / ray->dir.y);
 }
 
-int	init_ray(t_data *data, int x)
+t_ray	init_ray(t_data *data, int x)
 {
 	t_ray	ray;
 	double	cam_x;
@@ -67,19 +65,73 @@ int	init_ray(t_data *data, int x)
 	ray.dir.y = data->player->dir.y + data->player->plane.y * cam_x;
 	get_delta(&ray);
 	get_sidendist(data->player, &ray);
-	return (0);
+	return (ray);
+}
+
+double	dda(t_data *data, t_ray ray, int *side)
+{
+	int	curr_x;
+	int	curr_y;
+
+	curr_x = (int) data->player->pos.x;
+	curr_y = (int) data->player->pos.y;
+	while (curr_x < data->map->width && curr_y < data->map->height &&  data->map->map_tab[curr_y][curr_x] != '1')
+	{
+		if (ray.side.x < ray.side.y)
+		{
+			ray.side.x += ray.delta.x;
+			curr_x += ray.step.x;
+			*side = 0;
+		}
+		else
+		{
+			ray.side.y += ray.delta.y;
+			curr_y += ray.step.y;
+			*side = 1;
+		}
+	}
+	if (!*side)
+		return (ray.side.x - ray.delta.x);
+	return (ray.side.y - ray.delta.y);
+}
+
+int	draw_col(t_data *data, double dist, int side, int x)
+{
+	int	wall_height;
+	int	start_wall;
+	int	color;
+	int	cpt_drawn;
+
+	cpt_drawn = 0;
+	color = 0xffffff;
+	wall_height = (int) (WIN_HEIGHT / dist);
+	start_wall = WIN_HEIGHT / 2 - wall_height / 2;
+	if (start_wall < 0)
+		start_wall = 0;
+	if (side)
+		color = color / 2;
+	while (cpt_drawn < wall_height && cpt_drawn + start_wall < WIN_HEIGHT)
+	{
+		img_pix_put(data->window->image, x, cpt_drawn + start_wall, color);
+		cpt_drawn++;
+	}
+	return (SUCCESS);
 }
 
 int	ft_render(t_data *data)
 {
-	int	x = 0;
+	int		x;
+	int		side;
+	t_ray	ray;
 
 	// mlx_clear_window(data->window->mlx_ptr, data->window->win_ptr);
+	x = 0;
 	while (x < WIN_WIDTH)
 	{
-		init_ray(data, x);
+		ray = init_ray(data, x);
+		draw_col(data, dda(data, ray, &side), side, x);
 		x++;
 	}
 	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, data->window->image->mlx_img, 0, 0);
-	return (0);
+	return (SUCCESS);
 }

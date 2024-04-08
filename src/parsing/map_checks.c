@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:32:06 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/02 13:37:29 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:27:34 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*replace_line(t_data *data, char *line)
 
 	i = 0;
 	new_line = NULL;
-	new_line = malloc(sizeof(char) * (data->map->map_width + 1));
+	new_line = malloc(sizeof(char) * (data->map->width + 1));
 	if (!new_line)
 		return (strerror(ENOMEM), NULL);
 	while (line[i] != '\0' && line[i] != '\n')
@@ -28,7 +28,7 @@ char	*replace_line(t_data *data, char *line)
 		i++;
 	}
 	free(line);
-	while (i < data->map->map_width)
+	while (i < data->map->width)
 	{
 		new_line[i] = ' ';
 		i++;
@@ -47,7 +47,7 @@ int	fill_map(t_data *data)
 	while (data->map->map_tab[i])
 	{
 		size = ft_strlen(data->map->map_tab[i]);
-		if (size < data->map->map_width)
+		if (size < data->map->width)
 		{
 			data->map->map_tab[i] = replace_line(data, data->map->map_tab[i]);
 			if (!data->map->map_tab[i])
@@ -63,18 +63,18 @@ int	check_borders(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->map->map_width)
+	while (i < data->map->width)
 	{
 		if (space_or_one(data->map->map_tab[0][i]) || \
-		space_or_one(data->map->map_tab[data->map->map_height - 1][i]))
+		space_or_one(data->map->map_tab[data->map->height - 1][i]))
 			return (PARSING_ERROR);
 		i++;
 	}
 	i = 0;
-	while (i < data->map->map_height)
+	while (i < data->map->height)
 	{
 		if (space_or_one(data->map->map_tab[i][0]) || \
-		space_or_one(data->map->map_tab[i][data->map->map_width - 2]))
+		space_or_one(data->map->map_tab[i][data->map->width - 2]))
 			return (PARSING_ERROR);
 		i++;
 	}
@@ -96,11 +96,11 @@ int	invalid_block_around(t_data *data, int i, int j)
 	check = 0;
 	if (up >= 0)
 		check += space_or_one(data->map->map_tab[up][j]);
-	if (down < data->map->map_height)
+	if (down < data->map->height)
 		check += space_or_one(data->map->map_tab[down][j]);
 	if (left >= 0)
 		check += space_or_one(data->map->map_tab[i][left]);
-	if (right < data->map->map_width)
+	if (right < data->map->width)
 		check += space_or_one(data->map->map_tab[i][right]);
 	return (check);
 }
