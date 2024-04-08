@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/08 18:47:14 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/08 21:07:04 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <X11/X.h>
 # include <math.h>
+# include <limits.h>
 
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
@@ -45,7 +46,10 @@ typedef	struct s_vect
 
 typedef struct s_ray
 {
-	t_vect	sides;
+	t_vect	dir;
+	t_vect	side;
+	t_vect	delta;
+	t_vect	step;
 	double	len;
 }	t_ray;
 
