@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 16:54:55 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 19:54:08 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int	handle_cross(t_data *data)
 
 int	hook_n_loop(t_data *data)
 {
-	// mlx_key_hook(window->win_ptr, &handle_input, window);
-	// mlx_mouse_hook(window->win_ptr, &mouse_events, window);
+	mlx_key_hook(data->window->win_ptr, &handle_input, data);
+	mlx_mouse_hook(data->window->win_ptr, &mouse_events, data);
 	mlx_hook(data->window->win_ptr, DestroyNotify, 0, &handle_cross, data);
 	mlx_loop(data->window->mlx_ptr);
 	return (0);

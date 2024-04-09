@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 16:57:43 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 21:51:24 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@
 # include <X11/X.h>
 # include <math.h>
 # include <limits.h>
+
+# define K_ESC 65307
+# define K_A_UP 65362    // move up
+# define K_A_DOWN 65364  // move down
+# define K_A_LEFT 65361  // move left
+# define K_A_RIGHT 65363 // move right
+# define K_Q 113    // change color -
+# define K_W 119    // move up
+# define K_E 101    // change color +
+# define K_A 97     // move left
+# define K_S 115    // move down
+# define K_D 100    //move right
+# define ROTATION_SPEED 13.0
 
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
@@ -152,5 +165,9 @@ void		img_pix_put(t_img *img, int x, int y, int color);
 /*----------render.c---------*/
 int			ft_render(t_data *data);
 int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
+
+/*----------events.c---------*/
+int			mouse_events(int key, int x, int y, t_data *data);
+int			handle_input(int key, t_data *data);
 
 #endif
