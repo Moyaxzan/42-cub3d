@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/08 19:21:08 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:46:48 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	clean_exit(t_data *data)
 	ret_val = data->err_code;
 	exit_mlx(data->window);
 	free(data);
-	return (ret_val);
+	exit(ret_val);
 }
 
 // void	print_player(t_player *player)

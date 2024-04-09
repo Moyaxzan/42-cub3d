@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/06 16:16:30 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:51:26 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ void	exit_mlx(t_window *window)
 	if (!window->mlx_ptr)
 		return (free(window));
 	if (window->image->mlx_img)
+	{
 		mlx_destroy_image(window->mlx_ptr, window->image->mlx_img);
+		free(window->image);
+		window->image = NULL;
+	}
 	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
