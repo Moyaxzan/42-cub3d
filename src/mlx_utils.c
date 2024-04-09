@@ -6,33 +6,33 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 16:51:26 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:54:55 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	init_mlx(t_window *window)
+int	init_mlx(t_window *win)
 {
-	window->mlx_ptr = mlx_init();
-	if (!window->mlx_ptr)
+	win->mlx_ptr = mlx_init();
+	if (!win->mlx_ptr)
 		return (MLX_ERROR);
-	window->win_ptr
-		= mlx_new_window(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
-	window->image = malloc(sizeof(t_img));
-	if (!window->image)
-		return (free(window->mlx_ptr), ENOMEM);
-	window->image->mlx_img = mlx_new_image(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	if (!window->image->mlx_img)
+	win->win_ptr
+		= mlx_new_window(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
+	win->image = malloc(sizeof(t_img));
+	if (!win->image)
+		return (free(win->mlx_ptr), ENOMEM);
+	win->image->mlx_img = mlx_new_image(win->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	if (!win->image->mlx_img)
 		return (MLX_ERROR);
-	window->image->addr = mlx_get_data_addr
-		(window->image->mlx_img, &(window->image->bpp),
-			&(window->image->line_len), &(window->image->endian));
-	if (!window->image->addr)
+	win->image->addr = mlx_get_data_addr
+		(win->image->mlx_img, &(win->image->bpp),
+			&(win->image->line_len), &(win->image->endian));
+	if (!win->image->addr)
 		return (MLX_ERROR);
-	if (!window->win_ptr)
+	if (!win->win_ptr)
 	{
-		free(window->mlx_ptr);
+		free(win->mlx_ptr);
 		return (MLX_ERROR);
 	}
 	return (0);
@@ -55,7 +55,7 @@ void	exit_mlx(t_window *window)
 	free(window->mlx_ptr);
 	free(window);
 	window = NULL;
-} 
+}
 
 t_window	*init_window(void)
 {
@@ -86,14 +86,12 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-
 // inputs handleing
-
 int	handle_cross(t_data *data)
 {
 	clean_exit(data);
 	return (0);
-} 
+}
 
 int	hook_n_loop(t_data *data)
 {

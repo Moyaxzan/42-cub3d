@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 00:39:50 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:57:43 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WEST 2
 # define EAST 3
 
-typedef	struct s_vect
+typedef struct s_vect
 {
 	double	x;
 	double	y;

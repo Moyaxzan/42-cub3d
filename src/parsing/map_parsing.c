@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/09 00:44:31 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:57:23 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	get_player_pos(t_data *data, char c, int y, int x)
 	if (data->player->pos.x != data->player->pos.y)
 		return (PARSING_ERROR);
 	if (c == 'N')
-		ch_plr_dir(data->player, (t_vect) {0, -1}, (t_vect) {0.66, 0});
+		ch_plr_dir(data->player, (t_vect){0, -1}, (t_vect){0.66, 0});
 	else if (c == 'S')
-		ch_plr_dir(data->player, (t_vect) {0, 1}, (t_vect) {(double) -0.66, 0});
+		ch_plr_dir(data->player, (t_vect){0, 1}, (t_vect){(double) -0.66, 0});
 	else if (c == 'E')
-		ch_plr_dir(data->player, (t_vect) {1, 0}, (t_vect) {0, (double) -0.66});
+		ch_plr_dir(data->player, (t_vect){1, 0}, (t_vect){0, (double) -0.66});
 	else if (c == 'W')
-		ch_plr_dir(data->player, (t_vect) {-1, 0}, (t_vect) {0, 0.66});
-	data->player->pos = (t_vect){(double) x, (double) y};
+		ch_plr_dir(data->player, (t_vect){-1, 0}, (t_vect){0, 0.66});
+	data->player->pos = (t_vect){(double)x, (double)y};
 	return (SUCCESS);
 }
 
