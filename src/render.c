@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/09 16:56:38 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/09 17:11:35 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,28 @@ double	dda(t_data *data, t_ray ray, int *side)
 
 int	draw_col(t_data *data, double dist, int side, int x)
 {
-	int	wall_height;
 	int	start_wall;
-	int	color;
-	int	cpt_drawn;
+	int	end_wall;
+	int	wall_color;
+	int	y;
 
-	cpt_drawn = 0;
-	color = 0xffffff;
-	wall_height = (int)(WIN_HEIGHT / dist);
-	start_wall = WIN_HEIGHT / 2 - wall_height / 2;
+	y = 0;
+	wall_color = 0xffffff;
+	start_wall = WIN_HEIGHT / 2 - (int)(WIN_HEIGHT / dist) / 2;
+	end_wall = WIN_HEIGHT / 2 + (int)(WIN_HEIGHT / dist) / 2;
 	if (start_wall < 0)
 		start_wall = 0;
 	if (side)
-		color = color - 0x444444;
-	while (cpt_drawn < wall_height && cpt_drawn + start_wall < WIN_HEIGHT)
+		wall_color = wall_color - 0x444444;
+	while (y < WIN_HEIGHT)
 	{
-		img_pix_put(data->window->image, x, cpt_drawn + start_wall, color);
-		cpt_drawn++;
+		if (y >= start_wall && y <= end_wall)
+			img_pix_put(data->window->image, x, y, wall_color);
+		else if (y < WIN_HEIGHT / 2)
+			img_pix_put(data->window->image, x, y, data->map->ceiling);
+		else
+			img_pix_put(data->window->image, x, y, data->map->floor);
+		y++;
 	}
 	return (SUCCESS);
 }
