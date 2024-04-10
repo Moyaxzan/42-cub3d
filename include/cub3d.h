@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/10 14:38:38 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/10 15:18:05 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define K_S 115    // move down
 # define K_D 100    //move right
 # define ROTATION_SPEED 3
+# define SPEED 0.3
 
 # define W 0b1
 # define D 0b10

@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/10 14:37:45 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/10 15:31:42 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,42 @@ int	rotate(t_data *data, int keys)
 
 int	move(t_data *data, int keys)
 {
-	(void)keys;
-	if (keys & W)
+	double	s;
+
+	s = SPEED;
+	if ((keys & (S | W)) && (keys & (A | D)))
+		s = s * 0.1;
+	if (keys & W && !(keys & S))
 	{
-		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x + data->player->dir.x)] != '1')
-			data->player->pos.x = data->player->pos.x + data->player->dir.x * 0.3;
-		if (data->map->map_tab[(int)(data->player->pos.y + data->player->dir.y)][(int)data->player->pos.x] != '1')
-			data->player->pos.y = data->player->pos.y + data->player->dir.y * 0.3;
+		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x + data->player->dir.x * s)] != '1')
+			data->player->pos.x = data->player->pos.x + data->player->dir.x * s;
+
+		if (data->map->map_tab[(int)(data->player->pos.y + data->player->dir.y * s)][(int)data->player->pos.x] != '1')
+			data->player->pos.y = data->player->pos.y + data->player->dir.y * s;
+	}
+	else if (keys & S && !(keys & W))
+	{
+		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x - data->player->dir.x * s)] != '1')
+			data->player->pos.x = data->player->pos.x - data->player->dir.x * s;
+	
+		if (data->map->map_tab[(int)(data->player->pos.y - data->player->dir.y * s)][(int)data->player->pos.x] != '1')
+			data->player->pos.y = data->player->pos.y - data->player->dir.y * s;
+	}
+	if (keys & D && !(keys & A))
+	{
+		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x - data->player->dir.y * s)] != '1')
+			data->player->pos.x = data->player->pos.x - data->player->dir.y * s;
+
+		if (data->map->map_tab[(int)(data->player->pos.y + data->player->dir.x * s)][(int)data->player->pos.x] != '1')
+			data->player->pos.y = data->player->pos.y + data->player->dir.x * s;
+	}
+	else if (keys & A && !(keys & D))
+	{
+		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x + data->player->dir.y * s)] != '1')
+			data->player->pos.x = data->player->pos.x + data->player->dir.y * s;
+
+		if (data->map->map_tab[(int)(data->player->pos.y - data->player->dir.x * s)][(int)data->player->pos.x] != '1')
+			data->player->pos.y = data->player->pos.y - data->player->dir.x * s;
 	}
 	return (SUCCESS);
 }
@@ -56,6 +85,12 @@ int	handle_keypress(int key, t_data *data)
 		data->player->pressed_keys = data->player->pressed_keys | A_RIGHT;
 	else if (key == K_W)
 		data->player->pressed_keys = data->player->pressed_keys | W;
+	else if (key == K_S)
+		data->player->pressed_keys = data->player->pressed_keys | S;
+	else if (key == K_D)
+		data->player->pressed_keys = data->player->pressed_keys | D;
+	else if (key == K_A)
+		data->player->pressed_keys = data->player->pressed_keys | A;
 	ft_render(data);
 	return (SUCCESS);
 }
@@ -71,6 +106,12 @@ int	handle_keyrelease(int key, t_data *data)
 		data->player->pressed_keys = data->player->pressed_keys - A_RIGHT;
 	else if (key == K_W)
 		data->player->pressed_keys = data->player->pressed_keys - W;
+	else if (key == K_S)
+		data->player->pressed_keys = data->player->pressed_keys - S;
+	else if (key == K_D)
+		data->player->pressed_keys = data->player->pressed_keys - D;
+	else if (key == K_A)
+		data->player->pressed_keys = data->player->pressed_keys - A;
 	ft_render(data);
 	return (SUCCESS);
 }
