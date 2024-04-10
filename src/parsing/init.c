@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:47:52 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/09 16:57:03 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/10 14:08:43 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_player	*init_player(void)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
+	player->pressed_keys = 0;
 	player->pos = (t_vect){-1, -1};
 	player->dir = (t_vect){-1, -1};
 	player->plane = (t_vect){-1, -1};

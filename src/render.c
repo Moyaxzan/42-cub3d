@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/09 17:11:35 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/10 14:16:50 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ int	ft_render(t_data *data)
 	t_ray	ray;
 
 	mlx_clear_window(data->window->mlx_ptr, data->window->win_ptr);
+	rotate(data, data->player->pressed_keys);
+	move(data, data->player->pressed_keys);
 	side = 0;
 	x = 0;
 	while (x < WIN_WIDTH)

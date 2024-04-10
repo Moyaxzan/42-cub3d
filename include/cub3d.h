@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 21:51:24 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/10 14:38:38 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@
 # define K_A 97     // move left
 # define K_S 115    // move down
 # define K_D 100    //move right
-# define ROTATION_SPEED 13.0
+# define ROTATION_SPEED 3
+
+# define W 0b1
+# define D 0b10
+# define S 0b100
+# define A 0b1000
+# define A_RIGHT 0b10000
+# define A_LEFT 0b100000
+
 
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
@@ -71,6 +79,7 @@ typedef struct s_player
 	t_vect		pos;
 	t_vect		dir;
 	t_vect		plane;
+	int			pressed_keys;
 }	t_player;
 
 //map (images, floor, plafond, map_table)
@@ -168,6 +177,9 @@ int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
 
 /*----------events.c---------*/
 int			mouse_events(int key, int x, int y, t_data *data);
-int			handle_input(int key, t_data *data);
+int			handle_keypress(int key, t_data *data);
+int			handle_keyrelease(int key, t_data *data);
+int			rotate(t_data *data, int key);
+int			move(t_data *data, int key);
 
 #endif
