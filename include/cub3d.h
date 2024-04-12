@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/12 18:27:58 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:49:49 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,8 @@ int			ft_isnum(char *str);
 char		**ft_strjoin_map(char **tab, char *line);
 
 /*----------mlx_utils.c---------*/
-t_window	*init_window(void);
 int			init_mlx(t_window *window);
 void		exit_mlx(t_window *window);
-int			hook_n_loop(t_data *data);
 void		img_pix_put(t_img *img, int x, int y, int color);
 
 /*----------render.c---------*/
@@ -179,7 +177,13 @@ int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
 int			mouse_events(int key, int x, int y, t_data *data);
 int			handle_keypress(int key, t_data *data);
 int			handle_keyrelease(int key, t_data *data);
+int			handle_cross(t_data *data);
+int			hook_n_loop(t_data *data);
+
+/*------------ray.c-----------*/
+t_ray		init_ray(t_data *data, int x);
+
+/*------------moves.c-----------*/
 int			rotate(t_data *data, int key);
 int			move(t_data *data, int key);
-
 #endif

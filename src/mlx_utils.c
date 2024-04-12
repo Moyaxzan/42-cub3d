@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/12 18:27:19 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:49:36 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,6 @@ void	exit_mlx(t_window *window)
 	window = NULL;
 }
 
-t_window	*init_window(void)
-{
-	t_window	*window;
-
-	window = malloc(sizeof(t_window));
-	if (!window)
-		return (0x0);
-	window->mlx_ptr = 0x0;
-	window->win_ptr = 0x0;
-	return (window);
-}
-
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
@@ -84,23 +72,4 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
 		i -= 8;
 	}
-}
-
-// inputs handleing
-int	handle_cross(t_data *data)
-{
-	clean_exit(data);
-	return (0);
-}
-
-int	hook_n_loop(t_data *data)
-{
-	mlx_hook(data->window->win_ptr, KeyPress,
-		KeyPressMask, &handle_keypress, data);
-	mlx_hook(data->window->win_ptr, KeyRelease,
-		KeyReleaseMask, &handle_keyrelease, data);
-	mlx_mouse_hook(data->window->win_ptr, &mouse_events, data);
-	mlx_hook(data->window->win_ptr, DestroyNotify, 0, &handle_cross, data);
-	mlx_loop(data->window->mlx_ptr);
-	return (0);
 }

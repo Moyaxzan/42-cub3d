@@ -7,7 +7,7 @@ CFLAGS		=	-Wall -Wextra -Werror -I./include -g #-fsanitize=address
 
 SRC_DIR		=	src
 
-SRCS		=	main.c mlx_utils.c render.c events.c\
+SRCS		=	main.c mlx_utils.c render.c events.c ray.c \
 				parsing/arg_parsing.c parsing/file_parsing.c parsing/init.c \
 				parsing/parsing.c parsing/map_parsing.c parsing/utils.c \
 				parsing/map_checks.c parsing/rgb.c parsing/utils_checks.c \
