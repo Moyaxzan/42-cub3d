@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/10 15:18:05 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:27:58 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 # define A 0b1000
 # define A_RIGHT 0b10000
 # define A_LEFT 0b100000
-
 
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800

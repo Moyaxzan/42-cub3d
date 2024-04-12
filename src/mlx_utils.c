@@ -6,7 +6,7 @@
 /*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/10 14:18:00 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:27:19 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ int	handle_cross(t_data *data)
 
 int	hook_n_loop(t_data *data)
 {
-	mlx_hook(data->window->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
-	mlx_hook(data->window->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
+	mlx_hook(data->window->win_ptr, KeyPress,
+		KeyPressMask, &handle_keypress, data);
+	mlx_hook(data->window->win_ptr, KeyRelease,
+		KeyReleaseMask, &handle_keyrelease, data);
 	mlx_mouse_hook(data->window->win_ptr, &mouse_events, data);
 	mlx_hook(data->window->win_ptr, DestroyNotify, 0, &handle_cross, data);
 	mlx_loop(data->window->mlx_ptr);
-
-
 	return (0);
 }

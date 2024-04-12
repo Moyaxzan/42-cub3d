@@ -6,7 +6,7 @@
 /*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/10 15:31:42 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:26:12 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@ int	rotate(t_data *data, int keys)
 		rot = -rot;
 	tmp_dir_x = data->player->dir.x;
 	tmp_plane_x = data->player->plane.x;
-	data->player->dir.x = data->player->dir.x * cos(rot) - data->player->dir.y * sin(rot);
-	data->player->dir.y = tmp_dir_x * sin(rot) + data->player->dir.y * cos(rot);
-	data->player->plane.x = data->player->plane.x * cos(rot) - data->player->plane.y * sin(rot);
-	data->player->plane.y = tmp_plane_x * sin(rot) + data->player->plane.y * cos(rot);
+	data->player->dir.x = data->player->dir.x * cos(rot)
+		- data->player->dir.y * sin(rot);
+	data->player->dir.y = tmp_dir_x * sin(rot)
+		+ data->player->dir.y * cos(rot);
+	data->player->plane.x = data->player->plane.x * cos(rot)
+		- data->player->plane.y * sin(rot);
+	data->player->plane.y = tmp_plane_x * sin(rot)
+		+ data->player->plane.y * cos(rot);
 	return (SUCCESS);
 }
 
@@ -41,34 +45,38 @@ int	move(t_data *data, int keys)
 		s = s * 0.1;
 	if (keys & W && !(keys & S))
 	{
-		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x + data->player->dir.x * s)] != '1')
+		if (data->map->map_tab[(int)data->player->pos.y]
+			[(int)(data->player->pos.x + data->player->dir.x * s)] != '1')
 			data->player->pos.x = data->player->pos.x + data->player->dir.x * s;
-
-		if (data->map->map_tab[(int)(data->player->pos.y + data->player->dir.y * s)][(int)data->player->pos.x] != '1')
+		if (data->map->map_tab[(int)(data->player->pos.y
+				+ data->player->dir.y * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y + data->player->dir.y * s;
 	}
 	else if (keys & S && !(keys & W))
 	{
-		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x - data->player->dir.x * s)] != '1')
+		if (data->map->map_tab[(int)data->player->pos.y]
+			[(int)(data->player->pos.x - data->player->dir.x * s)] != '1')
 			data->player->pos.x = data->player->pos.x - data->player->dir.x * s;
-	
-		if (data->map->map_tab[(int)(data->player->pos.y - data->player->dir.y * s)][(int)data->player->pos.x] != '1')
+		if (data->map->map_tab[(int)(data->player->pos.y
+				- data->player->dir.y * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y - data->player->dir.y * s;
 	}
 	if (keys & D && !(keys & A))
 	{
-		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x - data->player->dir.y * s)] != '1')
+		if (data->map->map_tab[(int)data->player->pos.y]
+			[(int)(data->player->pos.x - data->player->dir.y * s)] != '1')
 			data->player->pos.x = data->player->pos.x - data->player->dir.y * s;
-
-		if (data->map->map_tab[(int)(data->player->pos.y + data->player->dir.x * s)][(int)data->player->pos.x] != '1')
+		if (data->map->map_tab[(int)(data->player->pos.y
+				+ data->player->dir.x * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y + data->player->dir.x * s;
 	}
 	else if (keys & A && !(keys & D))
 	{
-		if (data->map->map_tab[(int)data->player->pos.y][(int)(data->player->pos.x + data->player->dir.y * s)] != '1')
+		if (data->map->map_tab[(int)data->player->pos.y]
+			[(int)(data->player->pos.x + data->player->dir.y * s)] != '1')
 			data->player->pos.x = data->player->pos.x + data->player->dir.y * s;
-
-		if (data->map->map_tab[(int)(data->player->pos.y - data->player->dir.x * s)][(int)data->player->pos.x] != '1')
+		if (data->map->map_tab[(int)(data->player->pos.y
+				- data->player->dir.x * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y - data->player->dir.x * s;
 	}
 	return (SUCCESS);
