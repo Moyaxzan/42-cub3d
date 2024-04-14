@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 16:46:48 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/14 20:49:06 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	main(int argc, char **argv)
 	if (parsing(argc, argv, data))
 		return (clean_exit(data));
 	init_mlx(data->window);
+	init_textures(data);
 	ft_render(data);
 	hook_n_loop(data);
 	// print_map(data->map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/12 18:40:31 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/15 01:08:49 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	hook_n_loop(t_data *data)
 		KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->window->win_ptr, KeyRelease,
 		KeyReleaseMask, &handle_keyrelease, data);
-	mlx_mouse_hook(data->window->win_ptr, &mouse_events, data);
+	mlx_hook(data->window->win_ptr, 6, 1L << 6, mouse_events, data);
 	mlx_hook(data->window->win_ptr, DestroyNotify, 0, &handle_cross, data);
 	mlx_loop(data->window->mlx_ptr);
 	return (0);
@@ -32,7 +32,7 @@ int	handle_cross(t_data *data)
 
 int	handle_keypress(int key, t_data *data)
 {
-	printf("keypress = %d\n", key);
+	// printf("keypress = %d\n", key);
 	if (key == K_ESC)
 		return (clean_exit(data));
 	else if (key == K_A_LEFT)
@@ -53,7 +53,7 @@ int	handle_keypress(int key, t_data *data)
 
 int	handle_keyrelease(int key, t_data *data)
 {
-	printf("keyrelease = %d\n", key);
+	// printf("keyrelease = %d\n", key);
 	if (key == K_ESC)
 		return (clean_exit(data));
 	else if (key == K_A_LEFT)
@@ -72,11 +72,18 @@ int	handle_keyrelease(int key, t_data *data)
 	return (SUCCESS);
 }
 
-int	mouse_events(int key, int x, int y, t_data *data)
+// A corriger : le premier deplacement prend en compte le tout premier rotate meme si la
+// souris a ete recentrée
+// Egalement : pas mis le ft_render pour l'instant dc les rotations de souris s'effectuent
+// en mm tps que les deplacements, sinon trop de lag
+
+int	mouse_events(int x, int y, t_data *data)
 {
-	(void)data;
-	(void)x;
 	(void)y;
-	printf("mouse : %d\n", key);
+	if ((double)x < WIN_WIDTH / 6)
+		rotate(data, ROTATION_SPEED / 2, A_LEFT);
+	else if ((double)x > WIN_WIDTH / 1.2)
+		rotate(data, ROTATION_SPEED / 2, A_RIGHT);
+	// ft_render(data);
 	return (SUCCESS);
 }

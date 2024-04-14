@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:47:52 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/12 18:49:29 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/14 20:06:19 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,25 @@
 t_map	*init_map(void)
 {
 	t_map	*map;
+	int		i;
 
+	i = 0;
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
 	map->file_path = NULL;
 	map->map_tab = NULL;
-	map->walls[NORTH] = NULL;
-	map->walls[SOUTH] = NULL;
-	map->walls[WEST] = NULL;
-	map->walls[EAST] = NULL;
+	while (i < 4)
+	{
+		map->walls[i] = malloc(sizeof(t_img));
+		if (!map->walls[i])
+			return (NULL);
+		i++;	
+	}
+	map->walls[NORTH]->path = NULL;
+	map->walls[SOUTH]->path = NULL;
+	map->walls[WEST]->path = NULL;
+	map->walls[EAST]->path = NULL;
 	map->ceiling = 0;
 	map->floor = 0;
 	map->fd = 0;
@@ -45,6 +54,7 @@ t_player	*init_player(void)
 	player->pos = (t_vect){-1, -1};
 	player->dir = (t_vect){-1, -1};
 	player->plane = (t_vect){-1, -1};
+	player->mouse_temp = 0;
 	return (player);
 }
 

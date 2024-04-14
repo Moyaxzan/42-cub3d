@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/09 17:21:38 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/14 20:03:15 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	fill_element(t_data *data, char *line)
 	if (!*line)
 		return (0);
 	if (!ft_strncmp(line, "NO", 2))
-		data->map->walls[NORTH] = ft_strtrim(line + 2, " \t\n\v\r");
+		data->map->walls[NORTH]->path = ft_strtrim(line + 2, " \t\n\v\r");
 	else if (!ft_strncmp(line, "SO", 2))
-		data->map->walls[SOUTH] = ft_strtrim(line + 2, " \t\n\v\r");
+		data->map->walls[SOUTH]->path = ft_strtrim(line + 2, " \t\n\v\r");
 	else if (!ft_strncmp(line, "WE", 2))
-		data->map->walls[WEST] = ft_strtrim(line + 2, " \t\n\v\r");
+		data->map->walls[WEST]->path = ft_strtrim(line + 2, " \t\n\v\r");
 	else if (!ft_strncmp(line, "EA", 2))
-		data->map->walls[EAST] = ft_strtrim(line + 2, " \t\n\v\r");
+		data->map->walls[EAST]->path = ft_strtrim(line + 2, " \t\n\v\r");
 	else if (!ft_strncmp(line, "F", 1))
 		data->map->floor = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
 	else if (!ft_strncmp(line, "C", 1))
@@ -83,7 +83,7 @@ int	check_texture_path(t_data *data)
 	i = 0;
 	while (i < 3)
 	{
-		fd = open(data->map->walls[i++], O_RDONLY);
+		fd = open(data->map->walls[i++]->path, O_RDONLY);
 		if (fd == -1)
 			return (ft_errornl(strerror(errno)), cherr_code(data, errno));
 		close(fd);

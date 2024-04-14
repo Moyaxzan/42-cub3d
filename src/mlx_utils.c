@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p </var/spool/mail/tsaint-p>        +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/12 18:49:36 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/14 20:50:02 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	init_textures(t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		data->map->walls[i]->mlx_img = mlx_xpm_file_to_image(data->window->mlx_ptr, \
+		data->map->walls[i]->path, &data->map->walls[i]->width, &data->map->walls[i]->height);
+		i++;
+	}
+	return (SUCCESS);
+}
 
 int	init_mlx(t_window *win)
 {

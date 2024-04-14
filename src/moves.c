@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taospa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/12 18:38:09 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/14 18:08:39 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	rotate(t_data *data, int keys)
+int	rotate(t_data *data, int speed, int keys)
 {
 	double	rot;
 	double	tmp_dir_x;
@@ -20,7 +20,7 @@ int	rotate(t_data *data, int keys)
 
 	if (!(keys & A_RIGHT || keys & A_LEFT))
 		return (SUCCESS);
-	rot = (ROTATION_SPEED * M_PI) / 180;
+	rot = (speed * M_PI) / 180;
 	if (keys & A_LEFT)
 		rot = -rot;
 	tmp_dir_x = data->player->dir.x;

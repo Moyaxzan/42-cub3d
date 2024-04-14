@@ -1,9 +1,9 @@
-NO	./textures/blue.xpm
-SO	./textures/green.xpm
-WE	./textures/rose.xpm          
-EA	./textures/red.xpm  
-F 220,100,0
-C 220,100,0
+NO	./textures/wall.xpm
+SO	./textures/marble.xpm
+WE	./textures/marbface.xpm         
+EA	./textures/stone.xpm 
+F 144,238,144
+C 135,206,235
 
  1111111        111111111
 110000011      10000000001
