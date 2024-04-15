@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/15 00:58:52 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 01:37:58 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ typedef struct s_ray
 	t_vect	side;
 	t_vect	delta;
 	t_vect	step;
-	int		curr_x;
-	int		curr_y;
+	double	dist;
 }	t_ray;
 
 //player (coord, orientation)
@@ -82,7 +81,6 @@ typedef struct s_player
 	t_vect		dir;
 	t_vect		plane;
 	int			pressed_keys;
-	int			mouse_temp;
 }	t_player;
 
 typedef struct s_img
@@ -109,8 +107,11 @@ typedef struct s_map
 	t_img	*walls[4];
 	int		ceiling;
 	int		floor;
-	int		texture_x;
-	int		texture_y;
+	int		side;
+	double	step;
+	double	wall_x;
+	double	text_pos;		
+	t_vect	texture;
 }	t_map;
 
 typedef struct s_window
@@ -176,7 +177,6 @@ char		**ft_strjoin_map(char **tab, char *line);
 int			init_mlx(t_window *window);
 void		exit_mlx(t_window *window);
 void		img_pix_put(t_img *img, int x, int y, int color);
-int			init_textures(t_data *data);
 
 /*----------render.c---------*/
 int			ft_render(t_data *data);
@@ -191,6 +191,12 @@ int			hook_n_loop(t_data *data);
 
 /*------------ray.c-----------*/
 t_ray		init_ray(t_data *data, int x);
+
+/*------------textures.c-----------*/
+int			init_textures(t_data *data);
+int			get_texture_color(t_img *texture, int x, int y);
+t_img		*get_texture(t_data *data, t_ray *ray);
+int			place_texture(t_data *data, t_ray *ray);
 
 /*------------moves.c-----------*/
 int			rotate(t_data *data, int speed, int key);

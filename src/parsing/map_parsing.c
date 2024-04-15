@@ -6,13 +6,12 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/09 16:57:23 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/16 01:45:01 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-/**/
 // check if cast is working
 int	get_player_pos(t_data *data, char c, int y, int x)
 {

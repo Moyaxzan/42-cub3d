@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/15 01:08:49 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 01:38:48 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,19 @@ int	handle_keyrelease(int key, t_data *data)
 	return (SUCCESS);
 }
 
-// A corriger : le premier deplacement prend en compte le tout premier rotate meme si la
-// souris a ete recentrée
-// Egalement : pas mis le ft_render pour l'instant dc les rotations de souris s'effectuent
-// en mm tps que les deplacements, sinon trop de lag
+// A corriger : le premier deplacement prend en compte le tout premier 
+// rotate meme si la souris a ete recentrée
+// Egalement : pas mis le ft_render pour l'instant dc les rotations 
+// de souris s'effectuent en mm tps que les deplacements, sinon trop 
+// de lag
 
 int	mouse_events(int x, int y, t_data *data)
 {
 	(void)y;
 	if ((double)x < WIN_WIDTH / 6)
-		rotate(data, ROTATION_SPEED / 2, A_LEFT);
+		rotate(data, ROTATION_SPEED / 3, A_LEFT);
 	else if ((double)x > WIN_WIDTH / 1.2)
-		rotate(data, ROTATION_SPEED / 2, A_RIGHT);
+		rotate(data, ROTATION_SPEED / 3, A_RIGHT);
 	// ft_render(data);
 	return (SUCCESS);
 }
