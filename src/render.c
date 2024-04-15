@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/15 01:07:25 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/15 23:01:59 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,20 +88,15 @@ t_img	*get_texture(t_data *data, t_ray *ray, int *side)
 {
 	t_img	*texture;
 	
-	if (ray->side.x < ray->side.y)
-	{
-		if (*side)
-			return (texture = data->map->walls[SOUTH]);
-		else
-			return (texture = data->map->walls[NORTH]);
-	}
-	else
-	{
-		if (*side)
-			return (texture = data->map->walls[EAST]);
-		else
-			return (texture = data->map->walls[WEST]);
-	}
+	if (ray->dir.y < 0 && *side)
+		return (texture = data->map->walls[SOUTH]);
+	else if (ray->dir.y > 0 && *side)
+		return (texture = data->map->walls[NORTH]);
+	else if (ray->dir.x < 0 && !*side)
+		return (texture = data->map->walls[WEST]);
+	else if (ray->dir.x > 0 && !*side)
+		return (texture = data->map->walls[EAST]);
+	return (NULL);
 }
 
 int	ft_render(t_data *data)
