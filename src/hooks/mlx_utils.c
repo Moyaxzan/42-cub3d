@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/16 04:25:41 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 04:51:24 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	free_texturesnminimap(t_data *data)
 		}
 		i++;
 	}
-	if (data->map->minimap->img->mlx_img)
+	if (data->map->minimap && data->map->minimap->img->mlx_img)
 	{
 		mlx_destroy_image(data->window->mlx_ptr, \
 		data->map->minimap->img->mlx_img);

@@ -1,9 +1,9 @@
-NO	./textures/wall.xpm
-SO	./textures/marble.xpm
-WE	./textures/marbface.xpm         
-EA	./textures/stone.xpm 
-F 144,238,144
-C 135,206,235
+NO	./textures/Grass_03.xpm   
+SO	./textures/Grass_03.xpm    
+WE	./textures/Grass_04.xpm          
+EA	./textures/Grass_04.xpm     
+F 102,205,170
+C 70,130,180
 
  1111111        111111111
 110000011      10000000001
