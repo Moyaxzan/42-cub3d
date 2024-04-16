@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/14 20:49:06 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 04:24:32 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int	clean_exit(t_data *data)
 	{
 		ft_free(data->map->file_path);
 		ft_free(data->map->file_path);
-		ft_free(data->map->walls[0]);
-		ft_free(data->map->walls[1]);
-		ft_free(data->map->walls[2]);
-		ft_free(data->map->walls[3]);
+		ft_free(data->map->walls[0]->path);
+		ft_free(data->map->walls[1]->path);
+		ft_free(data->map->walls[2]->path);
+		ft_free(data->map->walls[3]->path);
 		if (data->map->fd > 0)
 			close(data->map->fd);
 		free_dchartab(data->map->map_tab);
+		free_texturesnminimap(data);
 		ft_free(data->map);
 	}
 	ft_free(data->player);
@@ -109,8 +110,10 @@ int	main(int argc, char **argv)
 	if (parsing(argc, argv, data))
 		return (clean_exit(data));
 	init_mlx(data->window);
+	init_minimap(data);
 	init_textures(data);
 	ft_render(data);
+	minimap(data);
 	hook_n_loop(data);
 	// print_map(data->map);
 	// print_player(data->player);

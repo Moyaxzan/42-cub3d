@@ -6,11 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/14 18:08:39 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 03:54:22 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	rotate(t_data *data, int speed, int keys)
 {
@@ -56,6 +56,7 @@ int	side_move(t_data *data, int keys, double s)
 				- data->player->dir.x * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y - data->player->dir.x * s;
 	}
+	minimap(data);
 	return (SUCCESS);
 }
 

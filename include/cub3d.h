@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/16 01:37:58 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 04:20:08 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,31 @@ typedef struct s_img
 	int		width;
 }	t_img;
 
-//map (images, floor, plafond, map_table)
+typedef struct s_minimap
+{
+	int		width;
+	int		height;
+	int		pix_factor;
+	t_img	*img;
+}	t_minimap;
+
 typedef struct s_map
 {
-	char	*file_path;
-	char	*line;
-	int		fd;
-	char	**map_tab;
-	int		height;
-	int		width;
-	t_img	*walls[4];
-	int		ceiling;
-	int		floor;
-	int		side;
-	double	step;
-	double	wall_x;
-	double	text_pos;		
-	t_vect	texture;
+	char		*file_path;
+	char		*line;
+	int			fd;
+	char		**map_tab;
+	int			height;
+	int			width;
+	t_img		*walls[4];
+	int			ceiling;
+	int			floor;
+	int			side;
+	double		step;
+	double		wall_x;
+	double		text_pos;		
+	t_vect		texture;
+	t_minimap	*minimap;
 }	t_map;
 
 typedef struct s_window
@@ -133,6 +141,7 @@ typedef struct s_data
 /*-----------main.c----------*/
 int			cherr_code(t_data *data, int err_code);
 int			clean_exit(t_data *data);
+void		ft_free(void *ptr);
 
 /*______________________PARSING_________________________*/
 
@@ -177,6 +186,7 @@ char		**ft_strjoin_map(char **tab, char *line);
 int			init_mlx(t_window *window);
 void		exit_mlx(t_window *window);
 void		img_pix_put(t_img *img, int x, int y, int color);
+void		free_texturesnminimap(t_data *data);
 
 /*----------render.c---------*/
 int			ft_render(t_data *data);
@@ -201,4 +211,9 @@ int			place_texture(t_data *data, t_ray *ray);
 /*------------moves.c-----------*/
 int			rotate(t_data *data, int speed, int key);
 int			move(t_data *data, int key);
+
+/*------------minimap.c-----------*/
+int			init_minimap(t_data *data);
+int			minimap(t_data *data);
+
 #endif

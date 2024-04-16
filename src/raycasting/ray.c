@@ -6,11 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:30:18 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/15 23:23:12 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 01:55:56 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 void	get_sidendist(t_player *plr, t_ray *ray)
 {

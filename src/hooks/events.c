@@ -6,11 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/16 01:38:48 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 01:55:41 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	hook_n_loop(t_data *data)
 {

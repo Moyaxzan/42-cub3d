@@ -6,11 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/16 01:37:28 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 04:25:41 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	init_mlx(t_window *win)
 {
@@ -36,6 +36,32 @@ int	init_mlx(t_window *win)
 		return (MLX_ERROR);
 	}
 	return (0);
+}
+
+void	free_texturesnminimap(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->map->walls[i]->mlx_img)
+		{
+			mlx_destroy_image(data->window->mlx_ptr, \
+			data->map->walls[i]->mlx_img);
+			free(data->map->walls[i]);
+			data->map->walls[i] = NULL;
+		}
+		i++;
+	}
+	if (data->map->minimap->img->mlx_img)
+	{
+		mlx_destroy_image(data->window->mlx_ptr, \
+		data->map->minimap->img->mlx_img);
+		free(data->map->minimap->img);
+		data->map->minimap->img = NULL;
+	}
+	ft_free(data->map->minimap);
 }
 
 void	exit_mlx(t_window *window)

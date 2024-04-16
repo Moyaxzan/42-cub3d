@@ -12,6 +12,7 @@ SRCS		=	main.c hooks/mlx_utils.c raycasting/render.c hooks/events.c \
 				parsing/arg_parsing.c parsing/file_parsing.c parsing/init.c \
 				parsing/parsing.c parsing/map_parsing.c parsing/utils.c \
 				parsing/map_checks.c parsing/rgb.c parsing/utils_checks.c \
+				extras/minimap.c
 				
 
 OBJ_DIR		=	obj

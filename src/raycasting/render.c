@@ -6,11 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/16 01:40:11 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 03:13:25 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	ch_plr_dir(t_player *plr, t_vect dir, t_vect plane)
 {
@@ -107,5 +107,7 @@ int	ft_render(t_data *data)
 	}
 	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
 	data->window->image->mlx_img, 0, 0);
+	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
+	data->map->minimap->img->mlx_img, 20, 20);
 	return (SUCCESS);
 }
