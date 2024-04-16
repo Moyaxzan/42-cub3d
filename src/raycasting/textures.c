@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:31:27 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/16 04:30:30 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:48:47 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	place_texture(t_data *data, t_ray *ray)
 
 	line_height = WIN_HEIGHT / ray->dist;
 	start = -line_height / 2 + WIN_HEIGHT / 2;
+	if (start < 0)
+		start = 0;
 	if (!data->map->side)
 		data->map->wall_x = data->player->pos.y + ray->dist * ray->dir.y;
 	else
