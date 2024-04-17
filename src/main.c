@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/16 04:24:32 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:12:45 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,6 @@ int	clean_exit(t_data *data)
 	free(data);
 	exit(ret_val);
 }
-
-// void	print_player(t_player *player)
-// {
-// 	printf("player->orient = %c\n", player->orient);
-// 	printf("player->pos_x = %d\n", player->pos_x);
-// 	printf("player->pos_y = %d\n", player->pos_y);
-// }
-
-// void	print_map(t_map *map)
-// {
-// 	printf("map : %p\n", map);
-// 	printf("map->file_path = %s\n", map->file_path);
-// 	printf("map->fd = %d\n", map->fd);
-// 	printf("map->walls[0] = %s\n", map->walls[0]);
-// 	printf("map->walls[1] = %s\n", map->walls[1]);
-// 	printf("map->walls[2] = %s\n", map->walls[2]);
-// 	printf("map->walls[3] = %s\n", map->walls[3]);
-// 	printf("map->ceiling = %x\n", map->ceiling);
-// 	printf("map->floor = %x\n", map->floor);
-// 	printf("map->height = %d\n", map->map_height);
-// 	printf("map->width = %d\n", map->map_width);
-// 	printf("map->map_tab = %p\n", map->map_tab);
-// 	if (map->map_tab)
-// 		for (int i = 0; map->map_tab[i]; i++)
-// 			printf("%s", map->map_tab[i]);
-// }
 
 void	help(void)
 {
@@ -115,7 +89,5 @@ int	main(int argc, char **argv)
 	ft_render(data);
 	minimap(data);
 	hook_n_loop(data);
-	// print_map(data->map);
-	// print_player(data->player);
 	return (clean_exit(data));
 }

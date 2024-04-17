@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/17 12:07:51 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:28:33 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	move(t_data *data, int keys)
 	double	s;
 
 	s = SPEED;
+	if ((keys & (S | W)) && (keys & (A | D)))
+		s = s / sqrt(2);
 	if (keys & W && !(keys & S))
 	{
 		if (data->map->map_tab[(int)data->player->pos.y]

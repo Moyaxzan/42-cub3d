@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/17 12:09:50 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/17 12:20:39 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,11 +193,15 @@ int			ft_render(t_data *data);
 int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
 
 /*----------events.c---------*/
+int			hook_n_loop(t_data *data);
+
+
+/*------------handlers.c-----------*/
 int			mouse_events(int x, int y, t_data *data);
 int			handle_keypress(int key, t_data *data);
 int			handle_keyrelease(int key, t_data *data);
 int			handle_cross(t_data *data);
-int			hook_n_loop(t_data *data);
+int			handle_no_events(t_data *data);
 
 /*------------ray.c-----------*/
 t_ray		init_ray(t_data *data, int x);
