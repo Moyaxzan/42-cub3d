@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/16 03:13:25 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:52:16 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ int	ft_render(t_data *data)
 	t_ray	ray;
 
 	mlx_clear_window(data->window->mlx_ptr, data->window->win_ptr);
-	rotate(data, ROTATION_SPEED, data->player->pressed_keys);
+	rotate(data, ROTATION_SPEED * 2, data->player->pressed_keys);
 	move(data, data->player->pressed_keys);
+	mlx_mouse_move(data->window->mlx_ptr, data->window->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	data->map->side = 0;
 	x = 0;
 	while (x < WIN_WIDTH)

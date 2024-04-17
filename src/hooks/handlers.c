@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:18:26 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/17 12:19:34 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:09:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	handle_cross(t_data *data)
 
 int	handle_keypress(int key, t_data *data)
 {
+	printf("key = %d\n", key);
+	if (key == K_TAB)
+		data->map->minimap->display = !data->map->minimap->display;
 	if (key == K_ESC)
 		return (clean_exit(data));
 	else if (key == K_A_LEFT)
@@ -73,10 +76,10 @@ int	handle_keyrelease(int key, t_data *data)
 int	mouse_events(int x, int y, t_data *data)
 {
 	(void)y;
-	if ((double)x < WIN_WIDTH / 6)
-		rotate(data, ROTATION_SPEED / 3, A_LEFT);
-	else if ((double)x > WIN_WIDTH / 1.2)
-		rotate(data, ROTATION_SPEED / 3, A_RIGHT);
-	// ft_render(data);
+	mlx_mouse_hide(data->window->mlx_ptr, data->window->win_ptr);
+	if (x < WIN_WIDTH / 2)
+		rotate(data, ROTATION_SPEED * (x - WIN_WIDTH) * 0.005, A_RIGHT);
+	else if (x > WIN_WIDTH / 2)
+		rotate(data, ROTATION_SPEED * (x - WIN_WIDTH) * 0.005, A_LEFT);
 	return (SUCCESS);
 }

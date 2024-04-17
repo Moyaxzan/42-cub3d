@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:50:55 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/16 04:07:18 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/17 15:30:57 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	minimap(t_data *data)
 	int			i;
 	int			j;
 
+	if (!data->map->minimap->display)
+		return (0);
 	i = 0;
 	while (data->map->map_tab[i])
 	{

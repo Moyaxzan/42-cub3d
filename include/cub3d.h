@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/17 12:20:39 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:40:25 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <limits.h>
 
 # define K_ESC 65307
+# define K_TAB 65289
 # define K_A_UP 65362    // move up
 # define K_A_DOWN 65364  // move down
 # define K_A_LEFT 65361  // move left
@@ -36,7 +37,7 @@
 # define K_A 97     // move left
 # define K_S 115    // move down
 # define K_D 100    //move right
-# define ROTATION_SPEED 1.2
+# define ROTATION_SPEED 0.5
 # define SPEED 0.023
 
 # define W 0b1
@@ -97,6 +98,7 @@ typedef struct s_img
 
 typedef struct s_minimap
 {
+	int		display;
 	int		width;
 	int		height;
 	int		pix_factor;
