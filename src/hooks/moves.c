@@ -6,13 +6,13 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/16 03:54:22 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:07:51 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	rotate(t_data *data, int speed, int keys)
+int	rotate(t_data *data, double speed, int keys)
 {
 	double	rot;
 	double	tmp_dir_x;
@@ -65,8 +65,6 @@ int	move(t_data *data, int keys)
 	double	s;
 
 	s = SPEED;
-	if ((keys & (S | W)) && (keys & (A | D)))
-		s = s * 0.1;
 	if (keys & W && !(keys & S))
 	{
 		if (data->map->map_tab[(int)data->player->pos.y]

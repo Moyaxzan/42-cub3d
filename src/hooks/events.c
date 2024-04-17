@@ -6,11 +6,19 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/16 01:55:41 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:04:44 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+int	handle_no_events(t_data *data)
+{
+	printf("no events\n");
+	move(data, data->player->pressed_keys);
+	ft_render(data);
+	return (0);
+}
 
 int	hook_n_loop(t_data *data)
 {
@@ -20,6 +28,7 @@ int	hook_n_loop(t_data *data)
 		KeyReleaseMask, &handle_keyrelease, data);
 	mlx_hook(data->window->win_ptr, 6, 1L << 6, mouse_events, data);
 	mlx_hook(data->window->win_ptr, DestroyNotify, 0, &handle_cross, data);
+	mlx_loop_hook(data->window->mlx_ptr, &handle_no_events, data);
 	mlx_loop(data->window->mlx_ptr);
 	return (0);
 }
@@ -47,7 +56,6 @@ int	handle_keypress(int key, t_data *data)
 		data->player->pressed_keys = data->player->pressed_keys | D;
 	else if (key == K_A)
 		data->player->pressed_keys = data->player->pressed_keys | A;
-	ft_render(data);
 	return (SUCCESS);
 }
 
@@ -68,7 +76,6 @@ int	handle_keyrelease(int key, t_data *data)
 		data->player->pressed_keys = data->player->pressed_keys - D;
 	else if (key == K_A)
 		data->player->pressed_keys = data->player->pressed_keys - A;
-	ft_render(data);
 	return (SUCCESS);
 }
 

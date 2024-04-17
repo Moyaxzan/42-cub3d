@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/16 04:20:08 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:09:50 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define K_A 97     // move left
 # define K_S 115    // move down
 # define K_D 100    //move right
-# define ROTATION_SPEED 3
-# define SPEED 0.3
+# define ROTATION_SPEED 1.2
+# define SPEED 0.023
 
 # define W 0b1
 # define D 0b10
@@ -209,7 +209,7 @@ t_img		*get_texture(t_data *data, t_ray *ray);
 int			place_texture(t_data *data, t_ray *ray);
 
 /*------------moves.c-----------*/
-int			rotate(t_data *data, int speed, int key);
+int			rotate(t_data *data, double speed, int key);
 int			move(t_data *data, int key);
 
 /*------------minimap.c-----------*/
