@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:37:22 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/16 04:51:24 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/18 02:03:03 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	init_mlx(t_window *win)
 	return (0);
 }
 
-void	free_texturesnminimap(t_data *data)
+void	free_textures(t_data *data)
 {
 	int	i;
 
@@ -46,14 +46,17 @@ void	free_texturesnminimap(t_data *data)
 	while (i < 4)
 	{
 		if (data->map->walls[i]->mlx_img)
-		{
 			mlx_destroy_image(data->window->mlx_ptr, \
 			data->map->walls[i]->mlx_img);
-			free(data->map->walls[i]);
-			data->map->walls[i] = NULL;
-		}
+		ft_free(data->map->walls[i]->path);
+		ft_free(data->map->walls[i]);
+		data->map->walls[i] = NULL;
 		i++;
 	}
+}
+
+void	free_minimap(t_data *data)
+{
 	if (data->map->minimap && data->map->minimap->img->mlx_img)
 	{
 		mlx_destroy_image(data->window->mlx_ptr, \

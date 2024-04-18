@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/16 01:45:01 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/18 01:55:44 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ int	get_player_pos(t_data *data, char c, int y, int x)
 	if (data->player->pos.x != data->player->pos.y)
 		return (PARSING_ERROR);
 	if (c == 'N')
-		ch_plr_dir(data->player, (t_vect){0, -1}, (t_vect){0.66, 0});
+		ch_plr_dir(data->player, (t_vect){0, -1}, (t_vect){0.66, 0}, 'N');
 	else if (c == 'S')
-		ch_plr_dir(data->player, (t_vect){0, 1}, (t_vect){(double) -0.66, 0});
+		ch_plr_dir(data->player, (t_vect){0, 1}, (t_vect){(double) -0.66, 0}, \
+		'S');
 	else if (c == 'E')
-		ch_plr_dir(data->player, (t_vect){1, 0}, (t_vect){0, (double) -0.66});
+		ch_plr_dir(data->player, (t_vect){1, 0}, (t_vect){0, (double) -0.66}, \
+		'E');
 	else if (c == 'W')
-		ch_plr_dir(data->player, (t_vect){-1, 0}, (t_vect){0, 0.66});
+		ch_plr_dir(data->player, (t_vect){-1, 0}, (t_vect){0, 0.66}, 'W');
 	data->player->pos = (t_vect){(double)x, (double)y};
 	return (SUCCESS);
 }
@@ -58,14 +60,13 @@ int	ft_valid_map_line(t_data *data, char **line, int y)
 
 int	store_map(t_data *data)
 {
-	int	height;
 	int	length;
 	int	valid;
 
-	height = 0;
+	data->map->height = 0;
 	length = 0;
 	data->map->map_tab[0] = NULL;
-	valid = ft_valid_map_line(data, &data->map->line, height);
+	valid = ft_valid_map_line(data, &data->map->line, data->map->height);
 	while (data->map->line && valid && !ft_is_empty_line(data->map->line))
 	{
 		data->map->map_tab = ft_strjoin_map(data->map->map_tab, \
@@ -75,13 +76,13 @@ int	store_map(t_data *data)
 		length = ft_strlen(data->map->line);
 		if (length > data->map->width)
 			data->map->width = length;
-		height++;
+		data->map->height++;
 		data->map->line = get_next_line(data->map->fd);
-		valid = ft_valid_map_line(data, &data->map->line, height);
+		data->map->line_nb++;
+		valid = ft_valid_map_line(data, &data->map->line, data->map->height);
 		if (!valid)
-			return (data->err_code);
+			return (cherr_code(data, data->err_code));
 	}
-	data->map->height = height;
 	return (SUCCESS);
 }
 
@@ -96,8 +97,7 @@ int	finish_gnl(t_data *data)
 	{
 		if (data->map->line && !ft_is_empty_line(data->map->line))
 			error = 1;
-		free(data->map->line);
-		data->map->line = get_next_line(data->map->fd);
+		free_n_gnl(data);
 	}
 	free(data->map->line);
 	data->map->line = NULL;
@@ -107,28 +107,25 @@ int	finish_gnl(t_data *data)
 int	parse_map(t_data *data)
 {
 	data->map->line = get_next_line(data->map->fd);
+	data->map->line_nb++;
 	while (data->map->line && ft_is_empty_line(data->map->line))
-	{
-		free(data->map->line);
-		data->map->line = get_next_line(data->map->fd);
-	}
+		free_n_gnl(data);
 	if (!ft_is_empty_line(data->map->line) && \
 	!ft_valid_map_line(data, &data->map->line, 0))
-		return (cherr_code(data, PARSING_ERROR));
+		return (file_parserr(data));
 	if (!data->map->line)
-		return (cherr_code(data, PARSING_ERROR));
+		return (file_parserr(data));
 	data->map->map_tab = malloc(sizeof(char *));
 	if (!data->map->map_tab)
 		return (strerror(ENOMEM), cherr_code(data, ENOMEM));
 	if (store_map(data))
-		return (data->err_code);
-	//still working ?
+		return (file_parserr(data));
 	if (data->player->pos.x == -1 || data->player->pos.y == -1)
-		return (cherr_code(data, PARSING_ERROR));
+		return (file_parserr(data));
 	if (data->map->line)
 	{
 		if (finish_gnl(data))
-			return (cherr_code(data, PARSING_ERROR));
+			return (file_parserr(data));
 	}
 	return (SUCCESS);
 }

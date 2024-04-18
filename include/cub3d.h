@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/17 17:40:25 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:47:42 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define K_S 115    // move down
 # define K_D 100    //move right
 # define ROTATION_SPEED 0.5
-# define SPEED 0.023
+# define SPEED 0.035
 
 # define W 0b1
 # define D 0b10
@@ -81,6 +81,7 @@ typedef struct s_player
 	t_vect		pos;
 	t_vect		dir;
 	t_vect		plane;
+	char		c_dir;
 	int			pressed_keys;
 }	t_player;
 
@@ -110,6 +111,7 @@ typedef struct s_map
 	char		*file_path;
 	char		*line;
 	int			fd;
+	int			line_nb;
 	char		**map_tab;
 	int			height;
 	int			width;
@@ -158,7 +160,7 @@ void		ft_errornl(char *str);
 void		free_dchartab(char **tab);
 
 /*---------file_parsing.c---------*/
-int			file_parserr(t_data *data, char *line, int line_nb);
+int			file_parserr(t_data *data);
 
 /*---------map_parsing.c---------*/
 int			parse_map(t_data *data);
@@ -172,7 +174,7 @@ int			rgb_to_int(char *line);
 
 /*---------arg_parsing.c---------*/
 int			arg_parsing(int argc, char **argv, t_data *data);
-int			file_parsing(t_data *data, int *line_nb);
+int			file_parsing(t_data *data);
 
 /*-----------utils_checks.c-----------*/
 int			space_or_one(char c);
@@ -183,16 +185,19 @@ int			ft_isnum(char *str);
 
 /*-----------utils.c-----------*/
 char		**ft_strjoin_map(char **tab, char *line);
+int			error_map(t_data *data);
+void		free_n_gnl(t_data *data);
 
 /*----------mlx_utils.c---------*/
 int			init_mlx(t_window *window);
 void		exit_mlx(t_window *window);
 void		img_pix_put(t_img *img, int x, int y, int color);
-void		free_texturesnminimap(t_data *data);
+void		free_minimap(t_data *data);
+void		free_textures(t_data *data);
 
 /*----------render.c---------*/
 int			ft_render(t_data *data);
-int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
+int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane, char c);
 
 /*----------events.c---------*/
 int			hook_n_loop(t_data *data);

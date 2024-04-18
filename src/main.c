@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/17 12:12:45 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:49:51 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,12 @@ int	clean_exit(t_data *data)
 	{
 		ft_free(data->map->file_path);
 		ft_free(data->map->file_path);
-		ft_free(data->map->walls[0]->path);
-		ft_free(data->map->walls[1]->path);
-		ft_free(data->map->walls[2]->path);
-		ft_free(data->map->walls[3]->path);
+		if (data->map->minimap)
+			free_minimap(data);
+		free_textures(data);
 		if (data->map->fd > 0)
 			close(data->map->fd);
 		free_dchartab(data->map->map_tab);
-		free_texturesnminimap(data);
 		ft_free(data->map);
 	}
 	ft_free(data->player);

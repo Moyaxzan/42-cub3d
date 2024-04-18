@@ -6,18 +6,11 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/17 17:52:16 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:23:44 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-int	ch_plr_dir(t_player *plr, t_vect dir, t_vect plane)
-{
-	plr->dir = dir;
-	plr->plane = plane;
-	return (0);
-}
 
 double	dda(t_data *data, t_ray *ray)
 {
@@ -84,16 +77,23 @@ int	draw_col(t_data *data, t_ray *ray, t_img *texture, int x)
 	return (SUCCESS);
 }
 
+int	mlx_render_events(t_data *data)
+{
+	mlx_clear_window(data->window->mlx_ptr, data->window->win_ptr);
+	rotate(data, ROTATION_SPEED * 2, data->player->pressed_keys);
+	move(data, data->player->pressed_keys);
+	mlx_mouse_move(data->window->mlx_ptr, data->window->win_ptr, \
+	WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	return (SUCCESS);
+}
+
 int	ft_render(t_data *data)
 {
 	int		x;
 	t_img	*texture;
 	t_ray	ray;
 
-	mlx_clear_window(data->window->mlx_ptr, data->window->win_ptr);
-	rotate(data, ROTATION_SPEED * 2, data->player->pressed_keys);
-	move(data, data->player->pressed_keys);
-	mlx_mouse_move(data->window->mlx_ptr, data->window->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	mlx_render_events(data);
 	data->map->side = 0;
 	x = 0;
 	while (x < WIN_WIDTH)
@@ -108,7 +108,8 @@ int	ft_render(t_data *data)
 	}
 	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
 	data->window->image->mlx_img, 0, 0);
-	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
-	data->map->minimap->img->mlx_img, 20, 20);
+	if (data->map->minimap->display)
+		mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
+		data->map->minimap->img->mlx_img, 20, 20);
 	return (SUCCESS);
 }

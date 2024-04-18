@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/17 17:44:17 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:24:27 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	rotate(t_data *data, double speed, int keys)
 	if (!(keys & A_RIGHT || keys & A_LEFT))
 		return (SUCCESS);
 	rot = (speed * M_PI) / 180;
-	if (keys & A_LEFT)
+	if ((keys & A_LEFT && (data->player->c_dir == 'N' || \
+	data->player->c_dir == 'S')) || (keys & A_RIGHT && \
+	(data->player->c_dir == 'E' || data->player->c_dir == 'W')))
 		rot = -rot;
 	tmp_dir_x = data->player->dir.x;
 	tmp_plane_x = data->player->plane.x;

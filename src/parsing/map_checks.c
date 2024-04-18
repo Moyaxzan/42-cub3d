@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:32:06 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/08 23:27:34 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/18 01:29:04 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	map_checks(t_data *data)
 	if (fill_map(data))
 		return (data->err_code);
 	if (check_borders(data))
-		return (cherr_code(data, PARSING_ERROR));
+		return (error_map(data));
 	while (data->map->map_tab[i])
 	{
 		j = 0;
@@ -124,7 +124,7 @@ int	map_checks(t_data *data)
 			data->map->map_tab[i][j] != '\n')
 			{
 				if (invalid_block_around(data, i, j))
-					return (cherr_code(data, PARSING_ERROR));
+					return (error_map(data));
 			}
 			j++;
 		}

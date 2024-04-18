@@ -6,23 +6,23 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/14 20:03:15 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/18 01:59:38 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	file_parserr(t_data *data, char *line, int line_nb)
+int	file_parserr(t_data *data)
 {
-	if (line)
+	if (data->map->line)
 	{
 		write(2, "Error\nUnexpected character.\nl.", 30);
-		ft_putnbr_fd(line_nb, 2);
+		ft_putnbr_fd(data->map->line_nb, 2);
 		write(2, ": ", 2);
-		write(2, line, ft_strlen(line));
+		write(2, data->map->line, ft_strlen(data->map->line));
 	}
 	else
-		write(2, "Error\nmissing informations\n", 26);
+		write(2, "Error\ncharacters at EOF or missing informations\n", 49);
 	return (cherr_code(data, PARSING_ERROR));
 }
 
@@ -49,7 +49,7 @@ int	fill_element(t_data *data, char *line)
 	return (1);
 }
 
-int	parse_elements(t_data *data, int *line_nb)
+int	parse_elements(t_data *data)
 {
 	int		nb_elem;
 	int		filled;
@@ -63,14 +63,14 @@ int	parse_elements(t_data *data, int *line_nb)
 		if (errno == ENOMEM)
 			return (strerror(errno), cherr_code(data, ENOMEM));
 		else if (filled == PARSING_ERROR)
-			return (file_parserr(data, data->map->line, *line_nb));
+			return (file_parserr(data));
 		else if (filled)
 			nb_elem++;
 		free(data->map->line);
 		if (nb_elem == 6)
 			break ;
 		data->map->line = get_next_line(data->map->fd);
-		(*line_nb)++;
+		(data->map->line_nb)++;
 	}
 	return (SUCCESS);
 }
@@ -81,7 +81,7 @@ int	check_texture_path(t_data *data)
 	int	fd;
 
 	i = 0;
-	while (i < 3)
+	while (i < 4)
 	{
 		fd = open(data->map->walls[i++]->path, O_RDONLY);
 		if (fd == -1)
@@ -91,9 +91,9 @@ int	check_texture_path(t_data *data)
 	return (0);
 }
 
-int	file_parsing(t_data *data, int *line_nb)
+int	file_parsing(t_data *data)
 {
-	if (parse_elements(data, line_nb))
+	if (parse_elements(data))
 	{
 		finish_gnl(data);
 		return (data->err_code);

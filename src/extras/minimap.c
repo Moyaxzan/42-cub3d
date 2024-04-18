@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:50:55 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/17 15:30:57 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:15:48 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	init_minimap(t_data *data)
 	&data->map->minimap->img->endian);
 	if (!data->map->minimap->img->addr)
 		return (MLX_ERROR);
+	data->map->minimap->display = 1;
 	return (SUCCESS);
 }
 

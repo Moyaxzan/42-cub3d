@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:18:26 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:29 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 02:03:19 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	handle_no_events(t_data *data)
 {
-	printf("no events\n");
 	move(data, data->player->pressed_keys);
 	ft_render(data);
 	return (0);
@@ -28,7 +27,6 @@ int	handle_cross(t_data *data)
 
 int	handle_keypress(int key, t_data *data)
 {
-	printf("key = %d\n", key);
 	if (key == K_TAB)
 		data->map->minimap->display = !data->map->minimap->display;
 	if (key == K_ESC)
@@ -66,12 +64,6 @@ int	handle_keyrelease(int key, t_data *data)
 		data->player->pressed_keys = data->player->pressed_keys - A;
 	return (SUCCESS);
 }
-
-// A corriger : le premier deplacement prend en compte le tout premier 
-// rotate meme si la souris a ete recentrée
-// Egalement : pas mis le ft_render pour l'instant dc les rotations 
-// de souris s'effectuent en mm tps que les deplacements, sinon trop 
-// de lag
 
 int	mouse_events(int x, int y, t_data *data)
 {

@@ -6,11 +6,19 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:27:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 12:51:39 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:23:55 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+int	ch_plr_dir(t_player *plr, t_vect dir, t_vect plane, char c)
+{
+	plr->dir = dir;
+	plr->plane = plane;
+	plr->c_dir = c;
+	return (0);
+}
 
 void	ft_errornl(char *str)
 {
@@ -33,10 +41,10 @@ void	free_dchartab(char **tab)
 
 int	parsing(int argc, char **argv, t_data *data)
 {
-	int	line_nb;
-
 	if (arg_parsing(argc, argv, data))
 		return (data->err_code);
-	line_nb = 1;
-	return (file_parsing(data, &line_nb));
+	data->map->line_nb = 1;
+	if (file_parsing(data))
+		return (data->err_code);
+	return (SUCCESS);
 }

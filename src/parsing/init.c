@@ -6,18 +6,28 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:47:52 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/16 03:22:39 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/18 01:52:54 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	null_textures(t_map *map)
+int	null_init(t_map *map)
 {
+	map->file_path = NULL;
+	map->map_tab = NULL;
 	map->walls[NORTH]->path = NULL;
 	map->walls[SOUTH]->path = NULL;
 	map->walls[WEST]->path = NULL;
 	map->walls[EAST]->path = NULL;
+	map->ceiling = 0;
+	map->floor = 0;
+	map->fd = 0;
+	map->height = 0;
+	map->width = 0;
+	map->line = NULL;
+	map->line_nb = 0;
+	map->minimap = NULL;
 	return (SUCCESS);
 }
 
@@ -30,22 +40,15 @@ t_map	*init_map(void)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	map->file_path = NULL;
-	map->map_tab = NULL;
 	while (i < 4)
 	{
 		map->walls[i] = malloc(sizeof(t_img));
 		if (!map->walls[i])
 			return (NULL);
+		map->walls[i]->mlx_img = NULL;
 		i++;
 	}
-	null_textures(map);
-	map->ceiling = 0;
-	map->floor = 0;
-	map->fd = 0;
-	map->height = 0;
-	map->width = 0;
-	map->line = NULL;
+	null_init(map);
 	return (map);
 }
 

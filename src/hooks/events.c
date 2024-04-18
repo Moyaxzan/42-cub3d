@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:52:57 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/17 12:19:42 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/18 01:24:22 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ int	hook_n_loop(t_data *data)
 	mlx_loop(data->window->mlx_ptr);
 	return (0);
 }
-
