@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/18 01:24:27 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/19 18:24:48 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	rotate(t_data *data, double speed, int keys)
 	if (!(keys & A_RIGHT || keys & A_LEFT))
 		return (SUCCESS);
 	rot = (speed * M_PI) / 180;
-	if ((keys & A_LEFT && (data->player->c_dir == 'N' || \
-	data->player->c_dir == 'S')) || (keys & A_RIGHT && \
-	(data->player->c_dir == 'E' || data->player->c_dir == 'W')))
+	if (keys & A_LEFT)
 		rot = -rot;
 	tmp_dir_x = data->player->dir.x;
 	tmp_plane_x = data->player->plane.x;
@@ -40,7 +38,9 @@ int	rotate(t_data *data, double speed, int keys)
 
 int	side_move(t_data *data, int keys, double s)
 {
-	if (keys & D && !(keys & A))
+	if ((keys & D) == (keys & A))
+		return (0);
+	if (keys & D)
 	{
 		if (data->map->map_tab[(int)data->player->pos.y]
 			[(int)(data->player->pos.x - data->player->dir.y * s)] != '1')
@@ -49,7 +49,7 @@ int	side_move(t_data *data, int keys, double s)
 				+ data->player->dir.x * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y + data->player->dir.x * s;
 	}
-	else if (keys & A && !(keys & D))
+	else if (keys & A)
 	{
 		if (data->map->map_tab[(int)data->player->pos.y]
 			[(int)(data->player->pos.x + data->player->dir.y * s)] != '1')

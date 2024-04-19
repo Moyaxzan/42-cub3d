@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/18 01:47:42 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/19 18:36:27 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_player
 	t_vect		pos;
 	t_vect		dir;
 	t_vect		plane;
-	char		c_dir;
 	int			pressed_keys;
 }	t_player;
 
@@ -158,6 +157,7 @@ t_data		*init_data(void);
 int			parsing(int argc, char **argv, t_data *data);
 void		ft_errornl(char *str);
 void		free_dchartab(char **tab);
+int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane);
 
 /*---------file_parsing.c---------*/
 int			file_parserr(t_data *data);
@@ -197,7 +197,6 @@ void		free_textures(t_data *data);
 
 /*----------render.c---------*/
 int			ft_render(t_data *data);
-int			ch_plr_dir(t_player *plr, t_vect dir, t_vect plane, char c);
 
 /*----------events.c---------*/
 int			hook_n_loop(t_data *data);

@@ -6,17 +6,16 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:27:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/18 01:23:55 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/19 18:36:00 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	ch_plr_dir(t_player *plr, t_vect dir, t_vect plane, char c)
+int	ch_plr_dir(t_player *plr, t_vect dir, t_vect plane)
 {
 	plr->dir = dir;
 	plr->plane = plane;
-	plr->c_dir = c;
 	return (0);
 }
 
