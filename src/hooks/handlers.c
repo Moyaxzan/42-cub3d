@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:18:26 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/19 16:08:34 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/19 18:41:44 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	mouse_events(int x, int y, t_data *data)
 		rotate(data, ROTATION_SPEED * (x - WIN_WIDTH) * 0.005, A_RIGHT);
 	else if (x > WIN_WIDTH / 2)
 		rotate(data, ROTATION_SPEED * (x - WIN_WIDTH) * 0.005, A_LEFT);
-	// mlx_mouse_move(data->window->mlx_ptr, data->window->win_ptr, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	// mlx_mouse_move(data->window->mlx_ptr, data->window->win_ptr,
+	//	WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	return (SUCCESS);
 }

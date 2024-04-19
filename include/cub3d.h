@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/19 18:36:27 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/19 18:40:48 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,6 @@ int			ft_render(t_data *data);
 
 /*----------events.c---------*/
 int			hook_n_loop(t_data *data);
-
 
 /*------------handlers.c-----------*/
 int			mouse_events(int x, int y, t_data *data);
