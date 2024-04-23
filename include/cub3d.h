@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/19 18:40:48 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/23 12:57:33 by jdufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ typedef struct s_minimap
 	int		width;
 	int		height;
 	int		pix_factor;
+	t_vect	center;
+	t_vect	v_i;
+	t_vect	v_j;
 	t_img	*img;
 }	t_minimap;
 
