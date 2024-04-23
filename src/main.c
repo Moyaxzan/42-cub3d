@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:28:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/18 01:49:51 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:18:25 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (clean_exit(data), ENOMEM);
 	if (parsing(argc, argv, data))
-		return (clean_exit(data));
+		return (write(2, "see [-h] or [--help] for further informations\n", 46), \
+		clean_exit(data));
 	init_mlx(data->window);
 	init_minimap(data);
-	init_textures(data);
+	if (init_textures(data) || data->err_code)
+		return (clean_exit(data));
 	ft_render(data);
 	minimap(data);
 	hook_n_loop(data);

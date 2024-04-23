@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:44:14 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/18 02:02:43 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 11:40:01 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**ft_strjoin_map(char **tab, char *line)
 
 int	error_map(t_data *data)
 {
-	ft_putstr_fd("Error\nMap not closed", 2);
+	ft_putstr_fd("Error\nMap not closed\n", 2);
 	return (cherr_code(data, PARSING_ERROR));
 }
 

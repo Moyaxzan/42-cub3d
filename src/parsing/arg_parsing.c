@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 19:01:02 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/09 17:21:39 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/23 15:21:41 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	arg_parsing(int argc, char **argv, t_data *data)
 	if (argc != 2)
 		return (ft_errornl("Invalid arguments. Usage : ./cub3D [path_to_map]\n")
 			, cherr_code(data, PARSING_ERROR));
+	if (!ft_strncmp("--help", argv[1], 7) || !ft_strncmp("-h", argv[1], 7))
+		return (help(), cherr_code(data, PARSING_ERROR));
 	if (check_map_extension(argv[1]))
 		return (ft_errornl("Invalid map extension. Expected : *.cub\n")
 			, cherr_code(data, PARSING_ERROR));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:31:27 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/16 12:48:47 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:19:41 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	init_textures(t_data *data)
 		mlx_xpm_file_to_image(data->window->mlx_ptr, \
 		data->map->walls[i]->path, &data->map->walls[i]->width, \
 		&data->map->walls[i]->height);
+		if (!data->map->walls[i]->mlx_img)
+			return (cherr_code(data, UNKNOWN_ERROR));
 		i++;
 	}
 	return (SUCCESS);

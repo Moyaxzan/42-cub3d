@@ -1,0 +1,19 @@
+C 255,255,255
+
+NO ./textures/color_theme/gris.xpm
+
+WE ./textures/color_theme/bleu.xpm
+
+
+        F 0,10,0    
+
+
+
+EA ./textures/color_theme/rose.xpm
+
+SO ./textures/color_theme/beige.xpm
+
+
+1
+1N1
+1

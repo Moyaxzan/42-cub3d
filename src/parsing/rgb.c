@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 12:15:26 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/02 12:45:58 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:40:58 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	get_rgb_val(char *str_rgb)
 
 // split with ',' ? check if 3 componoents + atoi + bitshift
 // implement error messages
-int	rgb_to_int(char *line)
+int	rgb_to_int(t_data *data, char *line)
 {
 	char	**split_rgb;
 	int		cpt;
@@ -51,17 +51,21 @@ int	rgb_to_int(char *line)
 	int		val;
 
 	if (!line)
-		return (-1);
+		return (cherr_code(data, UNKNOWN_ERROR));
 	split_rgb = get_rgb_tab(line);
 	if (!split_rgb)
-		return (-1);
+		return (file_parserr(data), cherr_code(data, PARSING_ERROR));
 	cpt = 0;
 	res = 0;
 	while (split_rgb[cpt])
 	{
 		val = get_rgb_val(split_rgb[cpt++]);
-		if (val == -1)
-			return (free(line), free_dchartab(split_rgb), -1);
+		if (val < 0 || val > 255)
+		{
+			file_parserr(data);
+			return (free(line), free_dchartab(split_rgb), \
+				cherr_code(data, PARSING_ERROR));
+		}
 		res = (res << 8) + val;
 	}
 	return (free_dchartab(split_rgb), free(line), res);

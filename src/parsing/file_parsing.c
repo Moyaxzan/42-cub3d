@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 17:27:28 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/18 01:59:38 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:11:13 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ int	fill_element(t_data *data, char *line)
 	else if (!ft_strncmp(line, "EA", 2))
 		data->map->walls[EAST]->path = ft_strtrim(line + 2, " \t\n\v\r");
 	else if (!ft_strncmp(line, "F", 1))
-		data->map->floor = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
+		data->map->floor = rgb_to_int(data, ft_strtrim(line + 1, " \t\n\v\r"));
 	else if (!ft_strncmp(line, "C", 1))
-		data->map->ceiling = rgb_to_int(ft_strtrim(line + 1, " \t\n\v\r"));
+		data->map->ceiling = rgb_to_int(data, ft_strtrim(line + 1, " \t\n\v\r"));
 	else
 		return (PARSING_ERROR);
+	if (data->err_code)
+		return (data->err_code);
 	return (1);
 }
 
@@ -62,6 +64,8 @@ int	parse_elements(t_data *data)
 		filled = fill_element(data, data->map->line);
 		if (errno == ENOMEM)
 			return (strerror(errno), cherr_code(data, ENOMEM));
+		if (data->err_code)
+			return (data->err_code);
 		else if (filled == PARSING_ERROR)
 			return (file_parserr(data));
 		else if (filled)
@@ -83,10 +87,13 @@ int	check_texture_path(t_data *data)
 	i = 0;
 	while (i < 4)
 	{
-		fd = open(data->map->walls[i++]->path, O_RDONLY);
+		fd = open(data->map->walls[i]->path, O_RDWR);
 		if (fd == -1)
-			return (ft_errornl(strerror(errno)), cherr_code(data, errno));
+			return (ft_putstr_fd(data->map->walls[i]->path, 2), \
+			write(2, "\n", 1), ft_errornl(strerror(errno)), \
+			cherr_code(data, errno));
 		close(fd);
+		i++;
 	}
 	return (0);
 }

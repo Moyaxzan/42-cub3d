@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/23 11:12:53 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:56:07 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ int	ft_render(t_data *data)
 		if (!texture)
 			return (UNKNOWN_ERROR);
 		ray.dist = dda(data, &ray);
-		draw_col(data, &ray, texture, x);
-		x++;
+		draw_col(data, &ray, texture, x++);
 	}
 	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
 	data->window->image->mlx_img, 0, 0);

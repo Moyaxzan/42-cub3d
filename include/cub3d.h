@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:47:28 by tsaint-p          #+#    #+#             */
-/*   Updated: 2024/04/23 12:57:33 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 15:19:05 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_data
 int			cherr_code(t_data *data, int err_code);
 int			clean_exit(t_data *data);
 void		ft_free(void *ptr);
+void		help(void);
 
 /*______________________PARSING_________________________*/
 
@@ -173,7 +174,7 @@ int			finish_gnl(t_data *data);
 int			map_checks(t_data *data);
 
 /*-----------rgb.c-----------*/
-int			rgb_to_int(char *line);
+int			rgb_to_int(t_data *data, char *line);
 
 /*---------arg_parsing.c---------*/
 int			arg_parsing(int argc, char **argv, t_data *data);

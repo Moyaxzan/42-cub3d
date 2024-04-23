@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:50:55 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/23 13:30:22 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:48:16 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,34 +94,6 @@ void	minimap_loop(t_data *data, int i, int j)
 		i * data->map->minimap->pix_factor, 0x000000);
 }
 
-void	minimap_center_loop(t_data *data, int i, int j)
-{
-	t_vect	map;
-	
-	map.x = j - (data->map->minimap->center.x - (data->map->minimap->width / (2 * data->map->minimap->pix_factor)));
-	map.y = i - (data->map->minimap->center.y - (data->map->minimap->height / (2 * data->map->minimap->pix_factor)));
-	if (map.x >= 0 && map.x < data->map->minimap->width / data->map->minimap->pix_factor &&  map.y >= 0 && map.y < data->map->minimap->height / data->map->minimap->pix_factor)
-	{
-		if (data->map->map_tab[i][j] == '1')
-			draw_tile(data->map->minimap, \
-			map.x * data->map->minimap->pix_factor, \
-			map.y * data->map->minimap->pix_factor, 0x2F4F4F);
-		else if (j == (int)data->player->pos.x && \
-		i == (int)data->player->pos.y)
-			draw_tile(data->map->minimap, \
-			map.x * data->map->minimap->pix_factor, \
-			map.y * data->map->minimap->pix_factor, 0xFF0000);
-		else if (data->map->map_tab[i][j] == '0')
-			draw_tile(data->map->minimap, \
-			map.x * data->map->minimap->pix_factor, \
-			map.y * data->map->minimap->pix_factor, data->map->floor);
-		else
-			draw_tile(data->map->minimap, \
-			map.x * data->map->minimap->pix_factor, \
-			map.y * data->map->minimap->pix_factor, 0x000000);
-	}
-}
-
 int	minimap(t_data *data)
 {
 	int			i;
@@ -136,34 +108,6 @@ int	minimap(t_data *data)
 		while (data->map->map_tab[i][j])
 		{
 			minimap_loop(data, i, j);
-			j++;
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-int	minimap_center(t_data *data)
-{
-	int			i;
-	int			j;
-
-	if (!data->map->minimap->display)
-		return (0);
-	ft_memset(data->map->minimap->img->addr, 0, data->map->minimap->height * data->map->minimap->img->line_len);
-	data->map->minimap->v_i.x = fmax(data->map->minimap->center.y - (data->map->minimap->height / (2 * data->map->minimap->pix_factor)), 0);
-    data->map->minimap->v_i.y = fmin(data->map->minimap->center.y + (data->map->minimap->height / (2 * data->map->minimap->pix_factor)), data->map->height - 1);
-    data->map->minimap->v_j.x = fmax(data->map->minimap->center.x - (data->map->minimap->width / (2 * data->map->minimap->pix_factor)), 0);
-    data->map->minimap->v_j.y = fmin(data->map->minimap->center.x + (data->map->minimap->width / (2 * data->map->minimap->pix_factor)), data->map->width - 1);	
-	data->map->minimap->center.x = (int)data->player->pos.x;
-	data->map->minimap->center.y = (int)data->player->pos.y;
-	i = data->map->minimap->v_i.x;
-	while (i <= data->map->minimap->v_i.y)
-	{
-		j = data->map->minimap->v_j.x;
-		while (j <= data->map->minimap->v_j.y)
-		{
-			minimap_center_loop(data, i, j);
 			j++;
 		}
 		i++;

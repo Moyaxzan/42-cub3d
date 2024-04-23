@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:26 by jdufour           #+#    #+#             */
-/*   Updated: 2024/04/21 17:14:45 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 14:49:13 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_player_pos(t_data *data, char c, int y, int x)
 		ch_plr_dir(data->player, (t_vect){1, 0}, (t_vect){(double) 0.0, 0.66});
 	else if (c == 'W')
 		ch_plr_dir(data->player, (t_vect){-1, 0}, (t_vect){0.0, -0.66});
-	data->player->pos = (t_vect){(double)x, (double)y};
+	data->player->pos = (t_vect){(double)x + 0.5, (double)y + 0.5};
 	return (SUCCESS);
 }
 
