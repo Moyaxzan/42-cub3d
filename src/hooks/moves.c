@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:36:19 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/19 18:24:48 by taospa           ###   ########.fr       */
+/*   Updated: 2024/04/23 11:12:19 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	side_move(t_data *data, int keys, double s)
 				- data->player->dir.x * s)][(int)data->player->pos.x] != '1')
 			data->player->pos.y = data->player->pos.y - data->player->dir.x * s;
 	}
-	minimap(data);
+	// minimap(data);
 	return (SUCCESS);
 }
 

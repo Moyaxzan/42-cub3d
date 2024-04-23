@@ -6,7 +6,7 @@
 /*   By: jdufour <jdufour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:46:22 by taospa            #+#    #+#             */
-/*   Updated: 2024/04/18 01:23:44 by jdufour          ###   ########.fr       */
+/*   Updated: 2024/04/23 11:12:53 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int	ft_render(t_data *data)
 	mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
 	data->window->image->mlx_img, 0, 0);
 	if (data->map->minimap->display)
+	{
+		minimap(data);
 		mlx_put_image_to_window(data->window->mlx_ptr, data->window->win_ptr, \
 		data->map->minimap->img->mlx_img, 20, 20);
+	}
 	return (SUCCESS);
 }
