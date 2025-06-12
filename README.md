@@ -1,6 +1,6 @@
 # Cub3D
 
-Cub3D is a **graphics project** introducing the concept of **raycasting**. The graphics library used is MinilibX from 42. This was a group project, which I completed with the excellent [@Moyaxzan](https://github.com/Moyaxzan).
+Cub3D is a **graphics project** introducing the concept of **raycasting**. The graphics library used is MinilibX from 42. This was a group project, which I completed with the brilliant [@rmnina](https://github.com/rmnina) (Hwo btw, created this beautiful README).
 
 To quote [Lode V. and their very good tutorial on raycasting](https://lodev.org/cgtutor/raycasting.html) :
 
