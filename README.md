@@ -43,7 +43,7 @@ Now, the whole purpose of the project was to be able to go from that :
 
 This is where the raycasting technique comes into play. Basically, **our observer will launch a bunch of rays**, which will be **traced step by step until they hit a wall**. To calculate these rays, we use an algorithm called **DDA (digital differential analyzer)**. This algorithm assumes that, since we're in a grid map, we'll always have intersections between our grid and our rays: we can use these intersections as stops, and **advance our ray from intersection to intersection until we reach the wall.**
 
-Here's a little sheet I made when I was learning raycasting. Not that my notes necessarily make it any clearer, but at least there are cool little drawings.
+Here's a little sheet @rmnina made when we were learning raycasting. Not that it necessarily make it any clearer, but at least that's nice.
 
 ![IMG_0460](https://github.com/rmnina/cub3d/assets/118455014/c43b0474-66f6-4eef-a7dc-6ae3e29141e5)
 
